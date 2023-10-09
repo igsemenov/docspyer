@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Modules — docspyer documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="docpage.css">
+    <script src="docpage.js"></script>
+</head>
+
+<body>
+
+    <div id="top-panel">
+        <div id="page-logo"></div>
+        <div id="top-panel-tool-bar">
+            <div id="global-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="local-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="home-page-btn" class="top-panel-btn" onclick="gotoHomePage()"></div>
+        </div>
+    </div>
+
+    <div id="global-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>Contents</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="global-toc-box__text" class="toc-box__textbox"></div>
+    </div>
+    <div id="local-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>On this page</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="local-toc-box__text" class="toc-box__textbox">
+            <p>
+            <ul>
+                <li><a href="#docspyer">docspyer</a>
+                    <ul>
+                        <li><a href="#docpackage">docpackage()</a></li>
+                        <li><a href="#docscript">docscript()</a></li>
+                        <li><a href="#docsource">docsource()</a></li>
+                        <li><a href="#builddocs">builddocs()</a></li>
+                        <li><a href="#cleardocs">cleardocs()</a></li>
+                        <li><a href="#docmods">docmods()</a></li>
+                        <li><a href="#funcstomd">funcstomd()</a></li>
+                        <li><a href="#classtomd">classtomd()</a></li>
+                        <li><a href="#funcstable">funcstable()</a></li>
+                        <li><a href="#classfuncs">classfuncs()</a></li>
+                        <li><a href="#npdocasmd">npdocasmd()</a></li>
+                        <li><a href="#docformat">DocFormat</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <div id="content-box">
+        <div id="title-box">
+            <h1 id="title-box__title"></h1>
+            <h2 id="title-box__annotation"></h2>
+            <hr>
+        </div>
+        <div id="doc-box">
+<div class="toc-anchor"></div><h1>docspyer</h1>
+
+<p>High-level documentation tools.</p>
+
+<div class="toc-anchor"></div><h2>docpackage()</h2>
+
+<pre class="py-sign">docspyer.<b>docpackage</b>(pkgpath, docpath, mode, maxdepth=<span>None</span>) → <em>None</em></pre>
+
+<p>Creates an overview of a python package (static analysis).</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>pkgpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the package directory.
+</dd></dl>
+
+<p><span class="vardef"><code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef"><code>mode</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Specifies the output format — <i><mark>&quot;html&quot;</mark></i> or <i><mark>&quot;md&quot;</mark></i>.
+</dd></dl>
+
+<p><span class="vardef"><code>maxdepth</code> : <em>int = None</em></span></p>
+
+<dl><dd>
+  Maximum depth of nested subpackages.
+  If <i>None</i>, all subpackages are included.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>docscript()</h2>
+
+<pre class="py-sign">docspyer.<b>docscript</b>(filepath, docpath, mode) → <em>None</em></pre>
+
+<p>Creates a report on a python script (static analysis).</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>filepath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the python script.
+</dd></dl>
+
+<p><span class="vardef"><code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef"><code>mode</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Specifies the output format — <i><mark>&quot;html&quot;</mark></i> or <i><mark>&quot;md&quot;</mark></i>.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>docsource()</h2>
+
+<pre class="py-sign">docspyer.<b>docsource</b>(srcpath, docpath, codeblocks=<span>False</span>) → <em>None</em></pre>
+
+<p>Converts an MD source file to an HTML page.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>srcpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the source file.
+</dd></dl>
+
+<p><span class="vardef"><code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef"><code>codeblocks</code> : <em>bool</em></span></p>
+
+<dl><dd>
+  Code highlighting is activated, if <i>True</i>.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>builddocs()</h2>
+
+<pre class="py-sign">docspyer.<b>builddocs</b>(srcpath, docpath, **settings) → <em>None</em></pre>
+
+<p>Assemble HTML documentation from MD source files.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>srcpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the source directory.
+</dd></dl>
+
+<p><span class="vardef"><code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef"><code>settings</code> : <em>dict</em></span></p>
+
+<dl><dd>
+  Configuration settings (see below).
+</dd></dl>
+
+<p><b>Settings</b></p>
+
+<p><span class="vardef"><code>doclogo</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Documentation logo as an SVG or HTML tag.
+  The recommended size is 30-40px.
+</dd></dl>
+
+<p><span class="vardef"><code>codeblocks</code> : <em>bool = True</em></span></p>
+
+<dl><dd>
+  Code highlighting is activated, if <i>True</i>.
+</dd></dl>
+
+<p><span class="vardef"><code>swaplinks</code> : <em>bool = False</em></span></p>
+
+<dl><dd>
+  If <i>True</i>, links to MD files are converted 
+  to HTML ones across the source files.
+</dd></dl>
+
+<p><span class="vardef"><code>extracss</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Custom CSS styles to include (path or text).
+</dd></dl>
+
+<p><span class="vardef"><code>extrajs</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Custom JS code to include (path or text).
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>cleardocs()</h2>
+
+<pre class="py-sign">docspyer.<b>cleardocs</b>(dirpath) → <em>None</em></pre>
+
+<p>Removes HTML, CSS, JS files from a specified folder.</p>
+
+<div class="toc-anchor"></div><h2>docmods()</h2>
+
+<pre class="py-sign">docspyer.<b>docmods</b>(modules, docpath, **settings) → <em>None</em></pre>
+
+<p>Creates MD documentation for python modules.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>modules</code> : <em>list</em></span></p>
+
+<dl><dd>
+  List of python modules (live objects).
+</dd></dl>
+
+<p><span class="vardef"><code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef"><code>settings</code> : <em>dict</em></span></p>
+
+<dl><dd>
+  Configuration settings (see below).
+</dd></dl>
+
+<p><b>Settings</b></p>
+
+<p><span class="vardef"><code>docsname</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Name of the index file.
+  The file is omitted, if no name is given.
+</dd></dl>
+
+<p><span class="vardef"><code>hostname</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Name of the modules holder. 
+  If <i>None</i>, the longest common name is used. 
+</dd></dl>
+
+<p><span class="vardef"><code>npstyle</code> : <em>bool = True</em></span></p>
+
+<dl><dd>
+  Expects numpy style docstrings, if <i>True</i>.
+  Otherwise, plain text format is used.
+</dd></dl>
+
+<p><span class="vardef"><code>moddocs</code> : <em>bool = True</em></span></p>
+
+<dl><dd>
+  If <i>False</i>, modules are not documented, 
+  only the index file is processed.
+</dd></dl>
+
+<p><span class="vardef"><code>modrefs</code> : <em>bool = True</em></span></p>
+
+<dl><dd>
+  If <i>True</i>, the modules reference is added to the index file.
+</dd></dl>
+
+<p><span class="vardef"><code>clsverbs</code> : <em>int = 0</em></span></p>
+
+<dl><dd>
+  Controls the verbosity of classes (0-2)
+  regarding the methods headings.
+</dd></dl>
+
+<p><span class="vardef"><code>codeblocks</code> : <em>bool = False</em></span></p>
+
+<dl><dd>
+  Code highlighting is activated, if <i>True</i>.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>funcstomd()</h2>
+
+<pre class="py-sign">docspyer.<b>funcstomd</b>(*funcs, **settings) → <em>str</em></pre>
+
+<p>Returns documentation of functions in MD.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>funcs</code> : <em>tuple</em></span></p>
+
+<dl><dd>
+  Functions to be documented.
+</dd></dl>
+
+<p><span class="vardef"><code>settings</code> : <em>dict</em></span></p>
+
+<dl><dd>
+  Configuration settings (see below).
+</dd></dl>
+
+<p><b>Settings</b></p>
+
+<p><span class="vardef"><code>hostname</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Name of the functions holder.
+</dd></dl>
+
+<p><span class="vardef"><code>level</code> : <em>int = None</em></span></p>
+
+<dl><dd>
+  Sets the level of functions headings.
+</dd></dl>
+
+<p><span class="vardef"><code>npstyle</code> : <em>bool = True</em></span></p>
+
+<dl><dd>
+  Expects numpy style docstrings, if <i>True</i>.
+  Otherwise, plain text format is used.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>classtomd()</h2>
+
+<pre class="py-sign">docspyer.<b>classtomd</b>(pycls, **settings) → <em>str</em></pre>
+
+<p>Returns a class documentation in MD.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>pycls</code> : <em>type</em></span></p>
+
+<dl><dd>
+  Class to be documented.
+</dd></dl>
+
+<p><span class="vardef"><code>settings</code> : <em>dict</em></span></p>
+
+<dl><dd>
+  Configuration settings (see below).
+</dd></dl>
+
+<p><b>Settings</b></p>
+
+<p><span class="vardef"><code>hostname</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Name of the class holder.
+</dd></dl>
+
+<p><span class="vardef"><code>level</code> : <em>int = None</em></span></p>
+
+<dl><dd>
+  Specifies the level of the class heading.
+</dd></dl>
+
+<p><span class="vardef"><code>npstyle</code> : <em>bool = True</em></span></p>
+
+<dl><dd>
+  Expects numpy style docstrings, if <i>True</i>.
+  Otherwise, plain text format is used.
+</dd></dl>
+
+<p><span class="vardef"><code>verbosity</code> : <em>int = 0</em></span></p>
+
+<dl><dd>
+  Controls the class verbosity (0-2)
+  regarding the methods headings.
+</dd></dl>
+
+<p><span class="vardef"><code>predicate</code> : <em>function = None</em></span></p>
+
+<dl><dd>
+  Function that filters class methods.
+  If <i>None</i>, only public methods with docs are retained.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>funcstable()</h2>
+
+<pre class="py-sign">docspyer.<b>funcstable</b>(funcs, hostdoc=<span>None</span>, indent=<span>None</span>) → <em>str</em></pre>
+
+<p>Returns functions overview as an MD table.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>funcs</code> : <em>list</em></span></p>
+
+<dl><dd>
+  Functions to be inspected.
+</dd></dl>
+
+<p><span class="vardef"><code>hostdoc</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Name of the parent MD document.
+  If given, links to functions are generated.
+</dd></dl>
+
+<p><span class="vardef"><code>indent</code> : <em>int = None</em></span></p>
+
+<dl><dd>
+  Specifies the table indent, if needed.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>classfuncs()</h2>
+
+<pre class="py-sign">docspyer.<b>classfuncs</b>(pycls, predicate=<span>None</span>) → <em>list</em></pre>
+
+<p>Fetches methods from a class.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>pycls</code> : <em>type</em></span></p>
+
+<dl><dd>
+  Class to be inspected.
+</dd></dl>
+
+<p><span class="vardef"><code>predicate</code> : <em>function = None</em></span></p>
+
+<dl><dd>
+  Function that filters class methods.
+  If <i>None</i>, only public methods with docs are retained.
+</dd></dl>
+
+<p><b>Returns</b></p>
+
+<p><span class="vardef"><em>list</em></span></p>
+
+<dl><dd>
+  List with the selected methods.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>npdocasmd()</h2>
+
+<pre class="py-sign">docspyer.<b>npdocasmd</b>(docstr) → <em>str</em></pre>
+
+<p>Converts a numpy style docsrting to MD.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>docstr</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Docstring to be converted.
+</dd></dl>
+
+<p><b>Returns</b></p>
+
+<p><span class="vardef"><em>str</em></span></p>
+
+<dl><dd>
+  The resulting docstring in MD.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>DocFormat</h2>
+
+<pre class="py-sign"><b><em>class</em></b> docspyer.<b>DocFormat</b>()</pre>
+
+<p>Custom formatter of source files.</p>
+
+<pre class="py-sign">DocFormat.<b>setconfig</b>(<em>self</em>, srcdirs, hostmod)</pre>
+
+<p>Sets up the formatter.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef"><code>srcdirs</code> : <em>list[str]</em></span></p>
+
+<dl><dd>
+  Folders to search for source files.
+</dd></dl>
+
+<p><span class="vardef"><code>hostmod</code> : <em>module</em></span></p>
+
+<dl><dd>
+  Module used to run inline calls.
+</dd></dl>
+
+<hr>
+        </div>
+        <p id="footnote">Copyright &copy; 2023, Igor Semenov.</p>
+    </div>
+
+    <footer></footer>
+
+    <script>
+        setDocPage();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Usage — docspyer documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="docpage.css">
+    <link rel="stylesheet" href="default.min.css">
+    <script src="docpage.js"></script>
+    <script src="highlight.min.js"></script>
+</head>
+
+<body>
+
+    <div id="top-panel">
+        <div id="page-logo"></div>
+        <div id="top-panel-tool-bar">
+            <div id="global-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="local-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="home-page-btn" class="top-panel-btn" onclick="gotoHomePage()"></div>
+        </div>
+    </div>
+
+    <div id="global-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>Contents</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="global-toc-box__text" class="toc-box__textbox"></div>
+    </div>
+    <div id="local-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>On this page</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="local-toc-box__text" class="toc-box__textbox">
+            <p>
+            <ul>
+                <li><a href="#generate-reports">Generate reports</a>
+                    <ul>
+                        <li><a href="#inspect-a-script">Inspect a script</a></li>
+                        <li><a href="#inspect-a-package">Inspect a package</a></li>
+                    </ul>
+                </li>
+                <li><a href="#build-documentation">Build documentation</a>
+                    <ul>
+                        <li><a href="#source-files">Source files</a>
+                            <ul>
+                                <li><a href="#format">Format</a></li>
+                                <li><a href="#metadata">Metadata</a></li>
+                                <li><a href="#index-file">Index file</a></li>
+                                <li><a href="#modules">Modules</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#run-the-builder">Run the builder</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <div id="content-box">
+        <div id="title-box">
+            <h1 id="title-box__title">docspyer — Usage</h1>
+            <h2 id="title-box__annotation"></h2>
+            <hr>
+        </div>
+        <div id="doc-box">
+<div class="toc-anchor"></div><h1>Generate reports</h1>
+
+<p><code>docspyer</code> can create reports on:</p>
+
+<p>
+<ul class="md-list">
+    <li>A single python script.</li>
+    <li>A group of python scripts (package).</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h2>Inspect a script</h2>
+
+<p>Example of creating a report on a script:</p>
+
+<pre><span class="lang-name">Python</span><code class="language-python"># -*- coding: utf-8 -*-
+&quot;&quot;&quot;Create a report on a python script.
+
+SRCPATH — Path to the the script.
+DOCPATH — Path where to place the output files.
+&quot;&quot;&quot;
+
+import docspyer
+
+DOCPATH = &#x27;../_docs&#x27;
+SRCPATH = &#x27;docmakers/docmods.py&#x27;
+
+docspyer.cleardocs(DOCPATH)
+
+docspyer.docscript(
+    SRCPATH, DOCPATH, mode=&#x27;html&#x27;
+)
+</code></pre>
+
+<p>For more information see <a href="docspyer.html#docscript">docspyer.docscript()</a></p>
+
+<div class="toc-anchor"></div><h2>Inspect a package</h2>
+
+<p>Example of creating a report on a package:</p>
+
+<pre><span class="lang-name">Python</span><code class="language-python"># -*- coding: utf-8 -*-
+&quot;&quot;&quot;Create a report on a group of python scripts (package).
+
+PKGPATH — Path to the package.
+DOCPATH — Path where to place the output files.
+&quot;&quot;&quot;
+
+import docspyer
+
+DOCPATH = &#x27;../_docs&#x27;
+PKGPATH = &#x27;../docspyer/docmakers&#x27;
+
+docspyer.cleardocs(DOCPATH)
+
+docspyer.docpackage(
+    PKGPATH, DOCPATH, mode=&#x27;html&#x27;, maxdepth=0
+)
+</code></pre>
+
+<p>For more information see <a href="docspyer.html#docpackage">docspyer.docpackage()</a></p>
+
+<div class="toc-anchor"></div><h1>Build documentation</h1>
+
+<p><code>docspyer</code> can build HTML documentation from MD source files.</p>
+
+<div class="toc-anchor"></div><h2>Source files</h2>
+
+<p>Collect source files in a separate folder, for example:</p>
+
+<pre class="text">../docs/sources
+ ├─ index.md
+ ├─ ...
+ └─ *.md</pre>
+
+<div class="toc-anchor"></div><h3>Format</h3>
+
+<p>
+<ul class="md-list">
+    <li>Source files should be prepared using the <a href="appendix.html">Markdown</a> format.</li>
+    <li>Consider using <a href="docspyer.html#docformat">docspyer.DocFormat</a> when preparing source files.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h3>Metadata</h3>
+
+<p>A source file <em>may</em> contain a header with JSON metadata:</p>
+
+<pre class="text">
+&lt;!--
+{
+  &quot;webtitle&quot;: &quot;WEBTITLE&quot;,
+  &quot;doctitle&quot;: &quot;DOCTITLE&quot;,
+  &quot;codeblocks&quot;: true/false
+}
+--&gt;
+</pre>
+
+<p><i>Remarks</i></p>
+
+<p>
+<ul class="md-list">
+    <li>The header must be a first paragraph of the source file.</li>
+    <li>JSON data overwrites the default settings of the HTML page builder.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h3>Index file</h3>
+
+<p>The root file — <code>index.md</code> — is mandatory.</p>
+
+<p>This file <em>must</em> contain the documentation outline (global TOC):</p>
+
+<pre class="text">
+## Contents
+
+- [Section](*.md)
+  - [Subsection](*.md)
+</pre>
+
+<p><i>Specification</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Heading title — <code>Contents</code> — is mandatory.</li>
+    <li>Heading level is flexible (1, 2, ...).</li>
+    <li>Links format (MD) is mandatory.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h3>Modules</h3>
+
+<p>Consider using <a href="docspyer.html#docmods">docspyer.docmods()</a> to document modules dynamically (as live objects).</p>
+
+<div class="toc-anchor"></div><h2>Run the builder</h2>
+
+<p>For more information see <a href="docspyer.html#builddocs">docspyer.builddocs()</a>.</p>
+
+<p>Example of building a documentation:</p>
+
+<pre><span class="lang-name">Python</span><code class="language-python"># -*- coding: utf-8 -*-
+&quot;&quot;&quot;Creates the `docspyer` documentation.
+&quot;&quot;&quot;
+
+import docspyer
+
+SRCPATH = &#x27;docs/sources&#x27;
+DOCPATH = &#x27;docs/build&#x27;
+
+LOGO = docspyer.docpage.pagemaker.getlogo()
+LOGO += &#x27;&lt;p id=&quot;logo-title&quot;&gt;docspyer&lt;/p&gt;&#x27;
+
+MODULES = [
+    docspyer
+]
+
+docspyer.docmods(MODULES, SRCPATH)
+
+config = {
+    &#x27;doclogo&#x27;: LOGO,
+    &#x27;swaplinks&#x27;: True,
+    &#x27;codeblocks&#x27;: True,
+    &#x27;extracss&#x27;: &#x27;_theme.css&#x27;
+}
+
+docspyer.builddocs(SRCPATH, DOCPATH, **config)
+</code></pre>
+
+<hr>
+        </div>
+        <p id="footnote">Copyright &copy; 2023, Igor Semenov.</p>
+    </div>
+
+    <footer></footer>
+
+    <script>
+        setDocPage();
+        hljs.highlightAll();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+[MESSAGES CONTROL]
+
+disable=
+    import-error,
+    missing-function-docstring,
+    missing-class-docstring,
+    too-many-arguments,
+    too-few-public-methods,
+    anomalous-backslash-in-string
+
+[SIMILARITIES]
+
+min-similarity-lines = 10

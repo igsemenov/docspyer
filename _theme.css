@@ -1,0 +1,23 @@
+/* 
+Extra styles for docspyer documentation.
+*/
+
+#logo-title {
+    opacity: 0.9;
+    font-size: 22px;
+    font-weight: bold;
+    padding-left: 12px;
+    color: var(--black-color);
+}
+
+#global-toc-box li {
+    margin: 7px 0px;
+}
+
+#global-toc-box li li {
+    margin: 7px 0px;
+}
+
+#local-toc-box ul ul {
+    margin-left: 1.5em;
+}

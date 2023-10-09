@@ -1,0 +1,514 @@
+:root {
+  --top-panel-height: 50px;
+  --black-color: #2A4242;
+  --ibm-blue: #0530ad;
+  --link-color: #0072aa;
+  --link-hover: #00ace6;
+  --em-color: #b30000;
+  --mark-color: green;
+  --code-block: #e6fff2;
+  --pergament: #fffae6;
+  --papirus: #fff2e6;
+  --title-color: #008ae6;
+  --widget-color: dimgray;
+  --body-color: #faf9f6;
+  --top-panel-color: white;
+  --tocbox-body-color: #f2f2f2;
+  --tocbox-header-color: gainsboro;
+  --global-toc-color: var(--pergament);
+  --local-toc-color: #ecf2f9;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--body-color);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+footer {
+  height: 20px;
+}
+
+/*
+===============================================================================
+Basic HTML elements
+===============================================================================
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--black-color);
+}
+
+h1,
+h2 {
+  font-weight: normal;
+}
+
+b,
+strong {
+  color: var(--black-color);
+}
+
+p {
+  line-height: 1.5em;
+}
+
+pre {
+  font-size: 14px;
+  line-height: 1.3em;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  background-color: #f2f2f2;
+}
+
+pre code {
+  font-size: 1em;
+}
+
+pre.text {
+  padding: 1em;
+  background-color: var(--papirus);
+}
+
+pre.code {
+  padding: 1em;
+  background-color: var(--code-block);
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+a:hover {
+  color: var(--link-hover);
+  text-decoration: underline;
+}
+
+i {
+  margin-right: 0.1em;
+}
+
+em {
+  color: var(--em-color);
+}
+
+mark {
+  font-size: 16px;
+  font-style: normal;
+  font-family: monospace;
+  color: var(--mark-color);
+  background-color: white;
+}
+
+p code,
+dd code,
+.md-list code {
+  border-radius: 3px;
+  padding: 0.2em 0.3em;
+  background-color: #f2f2f2;
+}
+
+table {
+  font-size: 0.9em;
+}
+
+table,
+th,
+td {
+  border: 1px solid darkgrey;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+th {
+  color: var(--black-color);
+  background-color: gainsboro;
+}
+
+td:first-child {
+  background-color: var(--pergament);
+}
+
+td i {
+  font-family: monospace;
+}
+
+td code {
+  color: var(--em-color);
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+}
+
+.md-list,
+.md-list ul {
+  margin-left: 2em;
+}
+
+.md-list li {
+  padding: 0em;
+  margin: 0.6em 0em;
+}
+
+.ref-list li {
+  list-style: none;
+}
+
+.ref-list,
+.ref-list ul {
+  font-size: 16px;
+  margin-left: 1em;
+}
+
+.ref-list li li {
+  font-size: 14px;
+}
+
+.ref-list li li li {
+  font-size: 12px;
+  margin: 5px 0px;
+}
+
+/* 
+===============================================================================
+top-panel
+===============================================================================
+*/
+
+.top-panel-btn {
+  margin: 0;
+  padding: 0;
+  opacity: 0.5;
+  border: none;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.top-panel-btn:hover {
+  opacity: 1;
+}
+
+.svg-widget {
+  fill: var(--widget-color);
+  stroke: var(--widget-color);
+  stroke-width: 0;
+}
+
+#page-logo {
+  display: flex;
+  margin-left: 25px;
+  flex-direction: row;
+  align-items: center;
+}
+
+#top-panel {
+  width: 100%;
+  height: var(--top-panel-height);
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--top-panel-color);
+  border-bottom: solid 1px rgba(167, 167, 167, 0.8);
+}
+
+#top-panel-tool-bar {
+  display: flex;
+  padding-top: 4px;
+  padding-right: 20px;
+  flex-direction: row;
+}
+
+/* 
+===============================================================================
+toc-box
+===============================================================================
+*/
+
+.toc-box {
+  font-size: 12px;
+  margin-top: 20px;
+  height: fit-content;
+  background-color: var(--tocbox-body-color);
+  border: solid 1px rgba(167, 167, 167, 0.8);
+  border-radius: 7px;
+  overflow: auto;
+}
+
+.toc-box__header {
+  display: flex;
+  background-color: var(--tocbox-header-color);
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.toc-box__header p {
+  opacity: 0.9;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+  margin-right: 1em;
+  font-weight: bold;
+  color: var(--black-color);
+}
+
+.toc-box__header button {
+  border: none;
+  color: inherit;
+  background: inherit;
+  margin-right: 0.5em;
+}
+
+.toc-box__textbox {
+  margin-left: 1.2em;
+  padding-right: 1.5em;
+  margin-bottom: 0.5em;
+  max-height: calc(100vh - 150px);
+  overflow: auto;
+}
+
+.toc-box a {
+  color: black;
+}
+
+.toc-box a:hover {
+  color: var(--link-color);
+}
+
+.toc-box ul {
+  margin-left: 0;
+  list-style: none;
+}
+
+.toc-box ul ul {
+  margin-left: 1em;
+}
+
+.toc-box li {
+  font-size: 13px;
+  margin: 5px 0px;
+}
+
+.toc-box li li {
+  font-size: 12px;
+  margin: 5px 0px;
+}
+
+.toc-box li li li {
+  font-size: 11px;
+  margin: 3px 0px;
+}
+
+#local-toc-box {
+  right: 20px;
+  position: fixed;
+  top: var(--top-panel-height);
+  background-color: var(--local-toc-color);
+}
+
+#global-toc-box {
+  left: 20px;
+  position: fixed;
+  top: var(--top-panel-height);
+  background-color: var(--global-toc-color);
+}
+
+/* 
+===============================================================================
+content-box
+===============================================================================
+*/
+
+#content-box {
+  margin: auto;
+  max-width: 790px;
+  min-height: 100px;
+  margin-bottom: 10px;
+  padding-top: var(--top-panel-height);
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-bottom: 2em;
+  border-radius: 20px;
+  background-color: white;
+  border: solid 1px rgba(167, 167, 167, 0.5);
+}
+
+#title-box {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#title-box__title {
+  font-weight: normal;
+  color: var(--title-color);
+}
+
+#title-box__annotation {
+  color: var(--black-color);
+}
+
+#footnote {
+  color: dimgray;
+  font-size: 0.9em;
+}
+
+/* 
+===============================================================================
+doc-box
+===============================================================================
+*/
+
+.toc-anchor {
+  position: relative;
+  top: calc(-1.2*var(--top-panel-height));
+}
+
+#doc-box hr {
+  margin-top: 40px;
+}
+
+/* 
+===============================================================================
+Documentation theme
+===============================================================================
+*/
+
+.global-toc__top-item {
+  opacity: 0.7;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+#index-toc li {
+  margin: 10px 0px;
+}
+
+#index-toc li li {
+  margin: 5px 0px;
+}
+
+#mod-refs li li {
+  margin: 10px 0px;
+}
+
+#mod-refs li li li {
+  margin: 5px 0px;
+}
+
+
+/* 
+===============================================================================
+Report elements
+===============================================================================
+*/
+
+pre.docstring {
+  padding: 1em;
+  background-color: #f2f2f2;
+}
+
+pre.call-trees {
+  padding: 1em;
+  background-color: #ccffcc;
+}
+
+pre.class-trees {
+  padding: 1em;
+  background-color: #ffcccc;
+}
+
+pre.imports-view {
+  padding: 1em;
+  background-color: #ccf2ff;
+}
+
+/* 
+===============================================================================
+Code blocks
+===============================================================================
+*/
+
+code.language-python {
+  background-color: var(--code-block);
+}
+
+.lang-name {
+  font-size: 0.8em;
+  padding-left: 1em;
+  color: dimgray;
+  font-style: italic;
+  font-family: monospace;
+}
+
+/* 
+===============================================================================
+Variable descriptions
+===============================================================================
+*/
+
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+dd {
+  margin: 0;
+  padding: 0;
+  margin-left: 1.5em;
+  line-height: 1.3em;
+}
+
+dd i {
+  color: var(--ibm-blue);
+}
+
+span.vardef code {
+  font-size: 14px;
+  background-color: #f2f2f2;
+  vertical-align: middle;
+  padding: 0.2em 0.3em;
+  margin-left: 0.2em;
+  border-radius: 5px;
+}
+
+/* 
+===============================================================================
+Signatures
+===============================================================================
+*/
+
+pre.py-sign {
+  padding: 1em;
+  border-radius: 0;
+  border-left: #b30000 solid 4px;
+}
+
+pre.py-sign b {
+  color: black;
+}
+
+pre.py-sign span {
+  color: var(--ibm-blue);
+}

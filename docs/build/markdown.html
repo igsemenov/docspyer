@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Markdown — docspyer documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="docpage.css">
+    <script src="docpage.js"></script>
+</head>
+
+<body>
+
+    <div id="top-panel">
+        <div id="page-logo"></div>
+        <div id="top-panel-tool-bar">
+            <div id="global-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="local-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="home-page-btn" class="top-panel-btn" onclick="gotoHomePage()"></div>
+        </div>
+    </div>
+
+    <div id="global-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>Contents</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="global-toc-box__text" class="toc-box__textbox"></div>
+    </div>
+    <div id="local-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>On this page</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="local-toc-box__text" class="toc-box__textbox">
+            <p>
+            <ul>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#blocks">Blocks</a>
+                    <ul>
+                        <li><a href="#heading">Heading</a></li>
+                        <li><a href="#rule">Rule</a></li>
+                        <li><a href="#par">Par</a></li>
+                        <li><a href="#list">List</a></li>
+                        <li><a href="#table">Table</a></li>
+                        <li><a href="#code">Code</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <div id="content-box">
+        <div id="title-box">
+            <h1 id="title-box__title">docspyer — Markdown</h1>
+            <h2 id="title-box__annotation"></h2>
+            <hr>
+        </div>
+        <div id="doc-box">
+<div class="toc-anchor"></div><h1>Overview</h1>
+
+<p>MD text is considered as a sequence of blocks.</p>
+
+<p><b>Block types</b></p>
+
+<p>
+<ul class="md-list">
+    <li><a href="#heading">Heading</a></li>
+    <li><a href="#rule">Rule</a></li>
+    <li><a href="#par">Par</a></li>
+    <li><a href="#list">List</a></li>
+    <li><a href="#table">Table</a></li>
+    <li><a href="#code">Code</a></li>
+</ul>
+</p>
+
+<p><b>Block structure</b></p>
+
+<p>
+<ul class="md-list">
+    <li>All blocks except code blocks are single paragraphs.</li>
+    <li>A code block may contain several paragraphs.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h1>Blocks</h1>
+
+<div class="toc-anchor"></div><h2>Heading</h2>
+
+<p><i>Example</i></p>
+
+<pre class="text"># Heading</pre>
+
+<p><i>Specification</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Occupies a single line.</li>
+    <li>Must start with <code>#{1,}\s</code>.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h2>Rule</h2>
+
+<p><i>Specification</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Represents a horizontal line.</li>
+    <li>Matches the regexp <code>[-=\*]{3,}</code>.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h2>Par</h2>
+
+<p><i>Example</i></p>
+
+<pre class="text">Some ordinary paragraph that is 
+not a heading, list, table, ...</pre>
+
+<p><i>Specification</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Represents an ordinary piece of text.</li>
+    <li>Dumped to HTML as it is, when is an <i>HTML block</i>.</li>
+</ul>
+</p>
+
+<p><i>HTML blocks</i></p>
+
+<p>Paragraphs starting with <code><(p|dl|div|svg)</code> or HTML comments.</p>
+
+<div class="toc-anchor"></div><h2>List</h2>
+
+<p><i>Example</i></p>
+
+<pre class="text">- Alfa
+- Bravo
+  - Charlie
+    Delta
+    - Echo</pre>
+
+<p><i>Specification</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Must start with the iterator <code>-\s</code>.</li>
+    <li>Multiline items are allowed, see <code>Charlie...</code> item.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h2>Table</h2>
+
+<p><i>Example</i></p>
+
+<pre class="text">Name  | Info
+------|--------
+Alfa  | Bravo
+Delta | Charlie</pre>
+
+<p><i>Specification</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Follows the <i>one-line-is-one-row</i> structure.</li>
+    <li>Columns are separated by <code>|</code>.</li>
+    <li>The first row is a table head.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h2>Code</h2>
+
+<p><i>Specification</i></p>
+
+<p>
+<ul class="md-list">
+    <li>May contain several paragraphs.</li>
+    <li>Must start and end with three backticks.</li>
+    <li>Code language — <code>LANG</code> — is fetched from the first line.</li>
+</ul>
+</p>
+
+<p>Code blocks can represent</p>
+
+<p>
+<ul class="md-list">
+    <li>Code snippets.</li>
+    <li>Text snippets.</li>
+</ul>
+</p>
+
+<p><i>Code snippets</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Dumped to HTML as <code>&lt;pre>&lt;code></code> pair.</li>
+    <li>CSS class <code>language-LANG</code> is assigned to <code>&lt;code></code>.</li>
+    <li><code>LANG</code> can be <code>python|c</code>.</li>
+</ul>
+</p>
+
+<p><i>Text snippets</i></p>
+
+<p>
+<ul class="md-list">
+    <li>Dumped to HTML as <code>&lt;pre></code> tag.</li>
+    <li>Assigned CSS class is <code>LANG</code>.</li>
+</ul>
+</p>
+
+<hr>
+        </div>
+        <p id="footnote">Copyright &copy; 2023, Igor Semenov.</p>
+    </div>
+
+    <footer></footer>
+
+    <script>
+        setDocPage();
+    </script>
+
+</body>
+
+</html>
