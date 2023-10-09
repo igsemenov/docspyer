@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Modules — Docspy documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="docpage.css">
+    <script src="docpage.js"></script>
+</head>
+
+<body>
+
+    <div id="top-panel">
+        <div id="page-logo"></div>
+        <div id="top-panel-tool-bar">
+            <div id="global-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="local-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="home-page-btn" class="top-panel-btn" onclick="gotoHomePage()"></div>
+        </div>
+    </div>
+
+    <div id="global-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>Contents</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="global-toc-box__text" class="toc-box__textbox"></div>
+    </div>
+    <div id="local-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>On this page</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="local-toc-box__text" class="toc-box__textbox">
+            <p>
+            <ul>
+                <li><a href="#annotations">Annotations</a></li>
+                <li><a href="#reference">Reference</a>
+                    <ul>
+                        <li><a href="#docspy">docspy</a></li>
+                        <li><a href="#docspy.inspect">docspy.inspect</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <div id="content-box">
+        <div id="title-box">
+            <h1 id="title-box__title">Modules</h1>
+            <h2 id="title-box__annotation"></h2>
+            <hr>
+        </div>
+        <div id="doc-box">
+            <div class="toc-anchor"></div><h2>Annotations</h2>
+
+<table>
+    <tr>
+        <th>Module</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><b>docspy</b></td>
+        <td>Creates an overview of your Python code.</td>
+    </tr>
+    <tr>
+        <td><b>docspy.inspect</b></td>
+        <td>Utilities for exploring python scripts.</td>
+    </tr>
+</table>
+
+<div class="toc-anchor"></div><h2>Reference</h2>
+
+<div class="toc-anchor"></div><h3>docspy</h3>
+
+<p>
+<ul>
+    <li><a href="docspy.html#docspy">docspy</a>
+        <ul>
+            <li><a href="docspy.html#docpackage">docpackage()</a></li>
+            <li><a href="docspy.html#docscript">docscript()</a></li>
+            <li><a href="docspy.html#docsource">docsource()</a></li>
+            <li><a href="docspy.html#builddocs">builddocs()</a></li>
+            <li><a href="docspy.html#docsconfig">docsconfig()</a></li>
+            <li><a href="docspy.html#docmodules">docmodules()</a></li>
+            <li><a href="docspy.html#cleardocs">cleardocs()</a></li>
+            <li><a href="docspy.html#clearcache">clearcache()</a></li>
+        </ul>
+    </li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h3>docspy.inspect</h3>
+
+<p>
+<ul>
+    <li><a href="docspy.inspect.html#docspy.inspect">docspy.inspect</a>
+        <ul>
+            <li><a href="docspy.inspect.html#modtomd">modtomd()</a></li>
+            <li><a href="docspy.inspect.html#modtorst">modtorst()</a></li>
+            <li><a href="docspy.inspect.html#getscripts">getscripts()</a></li>
+            <li><a href="docspy.inspect.html#scripts">Scripts</a>
+                <ul>
+                    <li><a href="docspy.inspect.html#listscripts">listscripts()</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            &copy; 2023, Igor Semenov
+        </p>
+    </footer>
+
+    <script>
+        setDocPage();
+    </script>
+
+</body>
+
+</html>

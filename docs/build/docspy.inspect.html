@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>docspy.inspect — Docspy documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="docpage.css">
+    <script src="docpage.js"></script>
+</head>
+
+<body>
+
+    <div id="top-panel">
+        <div id="page-logo"></div>
+        <div id="top-panel-tool-bar">
+            <div id="global-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="local-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="home-page-btn" class="top-panel-btn" onclick="gotoHomePage()"></div>
+        </div>
+    </div>
+
+    <div id="global-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>Contents</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="global-toc-box__text" class="toc-box__textbox"></div>
+    </div>
+    <div id="local-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>On this page</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="local-toc-box__text" class="toc-box__textbox">
+            <p>
+            <ul>
+                <li><a href="#docspy.inspect">docspy.inspect</a>
+                    <ul>
+                        <li><a href="#modtomd">modtomd()</a></li>
+                        <li><a href="#modtorst">modtorst()</a></li>
+                        <li><a href="#getscripts">getscripts()</a></li>
+                        <li><a href="#scripts">Scripts</a>
+                            <ul>
+                                <li><a href="#listscripts">listscripts()</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <div id="content-box">
+        <div id="title-box">
+            <h1 id="title-box__title"></h1>
+            <h2 id="title-box__annotation"></h2>
+            <hr>
+        </div>
+        <div id="doc-box">
+            <div class="toc-anchor"></div><h1>docspy.inspect</h1>
+
+<p>Utilities for exploring python scripts.</p>
+
+<div class="toc-anchor"></div><h2>modtomd()</h2>
+
+<pre class="py-sign">docspy.inspect.<b>modtomd</b>(pymod, meta=<span>None</span>) → <em>str</em></pre>
+
+<p>Dumps functions and classes from a module in MD format.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>pymod</code> : <em>module</em></span></p>
+
+<dl><dd>
+  A python module to be documented.
+</dd></dl>
+
+<p><span class="vardef">● <code>meta</code> : <em>dict</em></span></p>
+
+<dl><dd>
+  Metadata added as a header to the output document.
+  If the argument is not empty or <i>None</i>, it is formatted 
+  as a JSON string enclosed by an HTML comment.
+  Otherwise, the argument is ignored.
+</dd></dl>
+
+<p><b>Returns</b></p>
+
+<p><span class="vardef"><em>str</em></span></p>
+
+<dl><dd>
+  The resulting MD document.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>modtorst()</h2>
+
+<pre class="py-sign">docspy.inspect.<b>modtorst</b>(pymod) → <em>str</em></pre>
+
+<p>Dumps functions and classes from a module in RST format.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>pymod</code> : <em>module</em></span></p>
+
+<dl><dd>
+  A python module to be documented.
+</dd></dl>
+
+<p><b>Returns</b></p>
+
+<p><span class="vardef"><em>str</em></span></p>
+
+<dl><dd>
+  The resulting RST document.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>getscripts()</h2>
+
+<pre class="py-sign">docspy.inspect.<b>getscripts</b>(dirpath)</pre>
+
+<p>Extracts python scripts from a specified folder.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>dirpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the folder with the scripts.
+</dd></dl>
+
+<p><b>Returns</b></p>
+
+<p><span class="vardef"><em>Scripts</em></span></p>
+
+<dl><dd>
+  Object that holds script records.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>Scripts</h2>
+
+<pre class="py-sign"><b><em>class</em></b> docspy.inspect.<b>Scripts</b>()</pre>
+
+<p>Represents python scripts fetched from a certain folder.</p>
+
+<p><b>Attributes</b></p>
+
+<p><span class="vardef">● <code>dirpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the folder with the scripts.
+</dd></dl>
+
+<p><span class="vardef">● <code>scripts</code> : <em>dict</em></span></p>
+
+<dl><dd>
+  Namespace of the scripts (name-to-record).
+</dd></dl>
+
+<div class="toc-anchor"></div><h3>listscripts()</h3>
+
+<pre class="py-sign">Scripts.<b>listscripts</b>(<em>self</em>) → <em>list[str]</em></pre>
+
+<p>Returns names of the scripts.</p>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            &copy; 2023, Igor Semenov
+        </p>
+    </footer>
+
+    <script>
+        setDocPage();
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>docspy — Docspy documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="docpage.css">
+    <script src="docpage.js"></script>
+</head>
+
+<body>
+
+    <div id="top-panel">
+        <div id="page-logo"></div>
+        <div id="top-panel-tool-bar">
+            <div id="global-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="local-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="home-page-btn" class="top-panel-btn" onclick="gotoHomePage()"></div>
+        </div>
+    </div>
+
+    <div id="global-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>Contents</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="global-toc-box__text" class="toc-box__textbox"></div>
+    </div>
+    <div id="local-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>On this page</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="local-toc-box__text" class="toc-box__textbox">
+            <p>
+            <ul>
+                <li><a href="#docspy">docspy</a>
+                    <ul>
+                        <li><a href="#docpackage">docpackage()</a></li>
+                        <li><a href="#docscript">docscript()</a></li>
+                        <li><a href="#docsource">docsource()</a></li>
+                        <li><a href="#builddocs">builddocs()</a></li>
+                        <li><a href="#docsconfig">docsconfig()</a></li>
+                        <li><a href="#docmodules">docmodules()</a></li>
+                        <li><a href="#cleardocs">cleardocs()</a></li>
+                        <li><a href="#clearcache">clearcache()</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <div id="content-box">
+        <div id="title-box">
+            <h1 id="title-box__title"></h1>
+            <h2 id="title-box__annotation"></h2>
+            <hr>
+        </div>
+        <div id="doc-box">
+            <div class="toc-anchor"></div><h1>docspy</h1>
+
+<p>Creates an overview of your Python code.</p>
+
+<div class="toc-anchor"></div><h2>docpackage()</h2>
+
+<pre class="py-sign">docspy.<b>docpackage</b>(srcdir, docdir, mode, maxdepth=<span>None</span>) → <em>None</em></pre>
+
+<p>Generates documentation for a python package.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>srcdir</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the package directory.
+</dd></dl>
+
+<p><span class="vardef">● <code>docdir</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef">● <code>mode</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Specifies the output format — <mark>&quot;html&quot;</mark> or <mark>&quot;md&quot;</mark>.
+</dd></dl>
+
+<p><span class="vardef">● <code>maxdepth</code> : <em>int</em></span></p>
+
+<dl><dd>
+  Maximum depth of the documentation tree.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>docscript()</h2>
+
+<pre class="py-sign">docspy.<b>docscript</b>(srcfile, docdir, mode) → <em>None</em></pre>
+
+<p>Makes a report on a python script.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>srcfile</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the python script.
+</dd></dl>
+
+<p><span class="vardef">● <code>docdir</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef">● <code>mode</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Specifies the output format — <mark>&quot;html&quot;</mark> or <mark>&quot;md&quot;</mark>.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>docsource()</h2>
+
+<pre class="py-sign">docspy.<b>docsource</b>(srcpath, docpath, codeblocks=<span>False</span>) → <em>None</em></pre>
+
+<p>Converts an MD source file to an HTML page.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>srcpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the source file.
+</dd></dl>
+
+<p><span class="vardef">● <code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef">● <code>codeblocks</code> : <em>bool</em></span></p>
+
+<dl><dd>
+  Code highlighting is activated, if <i>True</i>.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>builddocs()</h2>
+
+<pre class="py-sign">docspy.<b>builddocs</b>(srcpath, docpath, config=<span>None</span>) → <em>None</em></pre>
+
+<p>Assemble HTML documentation from MD source files.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>srcpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the source directory.
+</dd></dl>
+
+<p><span class="vardef">● <code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef">● <code>config</code> : <em>dict</em></span></p>
+
+<dl><dd>
+  Configuration parameters, see <code>docsconfig()</code>.
+  If <i>None</i>, the default settings are used.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>docsconfig()</h2>
+
+<pre class="py-sign">docspy.<b>docsconfig</b>() → <em>dict</em></pre>
+
+<p>Returns a template for setting configuration parameters of the documentation builder.</p>
+
+<p>The template is a dictionary where:</p>
+
+<p>
+<ul>
+    <li>The keys are the parameters names.</li>
+    <li>The values specify the default settings.</li>
+</ul>
+</p>
+
+<p><b>Keys</b></p>
+
+<p><span class="vardef">● <code>doclogo</code> : <em>str = ''</em></span></p>
+
+<dl><dd>
+  Documentation logo as an SVG or HTML tag.
+  The recommended size is 30-40px.
+</dd></dl>
+
+<p><span class="vardef">● <code>codeblocks</code> : <em>bool = True</em></span></p>
+
+<dl><dd>
+  Code highlighting is activated, if <i>True</i>.
+</dd></dl>
+
+<p><span class="vardef">● <code>swaplinks</code> : <em>bool = False</em></span></p>
+
+<dl><dd>
+  If <i>True</i>, links to MD files are converted 
+  to HTML ones across the source files.
+</dd></dl>
+
+<p><span class="vardef">● <code>extracss</code> : <em>str = ''</em></span></p>
+
+<dl><dd>
+  Custom CSS styles to include.
+</dd></dl>
+
+<p><span class="vardef">● <code>extrajs</code> : <em>str = ''</em></span></p>
+
+<dl><dd>
+  Custom JS code to include.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>docmodules()</h2>
+
+<pre class="py-sign">docspy.<b>docmodules</b>(modules, docpath, hostname=<span>None</span>)</pre>
+
+<p>Creates MD documentation for a group of python modules.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>modules</code> : <em>list</em></span></p>
+
+<dl><dd>
+  List of python modules (objects)
+</dd></dl>
+
+<p><span class="vardef">● <code>docpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path where to place the output files.
+</dd></dl>
+
+<p><span class="vardef">● <code>hostname</code> : <em>str = None</em></span></p>
+
+<dl><dd>
+  Name of the modules holder (package, namespace, etc.)
+  to set the webtitles of the output files.
+</dd></dl>
+
+<div class="toc-anchor"></div><h2>cleardocs()</h2>
+
+<pre class="py-sign">docspy.<b>cleardocs</b>(dirpath)</pre>
+
+<p>Removes HTML, CSS, JS and MD files from a specified folder.</p>
+
+<div class="toc-anchor"></div><h2>clearcache()</h2>
+
+<pre class="py-sign">docspy.<b>clearcache</b>(rootpath=<span>None</span>)</pre>
+
+<p>Removes content of <code>&lowbar;&lowbar;pycache__</code> folders in a directory tree.</p>
+
+<p><b>Parameters</b></p>
+
+<p><span class="vardef">● <code>rootpath</code> : <em>str</em></span></p>
+
+<dl><dd>
+  Path to the root of the directory tree.
+</dd></dl>
+        </div>
+    </div>
+
+    <footer>
+        <p>
+            &copy; 2023, Igor Semenov
+        </p>
+    </footer>
+
+    <script>
+        setDocPage();
+    </script>
+
+</body>
+
+</html>

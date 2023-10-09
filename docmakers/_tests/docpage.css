@@ -1,0 +1,419 @@
+:root {
+  --top-panel-height: 50px;
+  --widget-color: dimgray;
+  --body-color: #faf9f6;
+  --top-panel-color: white;
+  --tocbox-body-color: #f2f2f2;
+  --tocbox-header-color: gainsboro;
+  --title-color: dodgerblue;
+  --black-color: #2A4242;
+  --ibm-blue: #0530ad;
+  --em-color: #b30000;
+  --mark-color: green;
+  --code-block: #e6fff2;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--body-color);
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 0.9em;
+}
+
+footer {
+  font-size: 0.8em;
+}
+
+footer p {
+  padding-left: 20px;
+}
+
+/* 
+===============================================================================
+top-panel
+===============================================================================
+*/
+
+#page-logo {
+  display: flex;
+  margin-left: 25px;
+  flex-direction: row;
+  align-items: center;
+}
+
+#top-panel {
+  width: 100%;
+  height: var(--top-panel-height);
+  position: fixed;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--top-panel-color);
+  border-bottom: solid 1px rgba(167, 167, 167, 0.8);
+}
+
+#top-panel-tool-bar {
+  display: flex;
+  padding-top: 4px;
+  padding-right: 20px;
+  flex-direction: row;
+}
+
+.top-panel-btn {
+  margin: 0;
+  padding: 0;
+  opacity: 0.5;
+  border: none;
+  cursor: pointer;
+  margin-left: 15px;
+}
+
+.top-panel-btn:hover {
+  opacity: 1;
+}
+
+.svg-widget {
+  fill: var(--widget-color);
+  stroke: var(--widget-color);
+  stroke-width: 0;
+}
+
+/* 
+===============================================================================
+toc-box
+===============================================================================
+*/
+
+.toc-box {
+  font-size: 0.8em;
+  min-width: 150px;
+  height: fit-content;
+  margin-top: 20px;
+  background-color: var(--tocbox-body-color);
+  border: solid 1px rgba(167, 167, 167, 0.8);
+  border-radius: 7px;
+  overflow: auto;
+}
+
+.toc-box__header {
+  display: flex;
+  background-color: var(--tocbox-header-color);
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.toc-box__header p {
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  margin-left: 1em;
+  font-weight: bold;
+  color: var(--black-color);
+}
+
+.toc-box__header button {
+  border: none;
+  color: inherit;
+  background: inherit;
+  margin-right: 0.5em;
+}
+
+.toc-box__textbox {
+  max-height: calc(100vh - 165px);
+  overflow: auto;
+}
+
+.toc-box__textbox ul {
+  padding: 0;
+  margin: 0.8em;
+  margin-right: 1.5em;
+  margin-left: 2.25em;
+}
+
+.toc-box__textbox li {
+  padding: 0;
+  margin: 0.25em 0em;
+}
+
+.toc-box__textbox li>ul {
+  margin: 0;
+  padding: 0;
+  margin-left: 1.25em;
+}
+
+#local-toc-box {
+  position: fixed;
+  top: var(--top-panel-height);
+  right: 20px;
+}
+
+#global-toc-box {
+  position: fixed;
+  top: var(--top-panel-height);
+  left: 20px;
+}
+
+/* 
+===============================================================================
+content-box
+===============================================================================
+*/
+
+#content-box {
+  margin: auto;
+  max-width: 790px;
+  min-height: 100px;
+  margin-bottom: 10px;
+  padding-top: var(--top-panel-height);
+  padding-left: 3em;
+  padding-right: 3em;
+  padding-bottom: 2em;
+  border-radius: 20px;
+  background-color: white;
+  border: solid 1px rgba(167, 167, 167, 0.5);
+}
+
+#title-box {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+#title-box__title {
+  color: var(--title-color);
+}
+
+#title-box__annotation {
+  color: var(--black-color);
+}
+
+/* 
+===============================================================================
+doc-box
+===============================================================================
+*/
+
+.toc-anchor {
+  position: relative;
+  top: calc(-1.2*var(--top-panel-height));
+}
+
+#doc-box ul {
+  margin: 0;
+  padding: 0;
+  padding-left: 1.25em;
+}
+
+#doc-box li {
+  margin-top: 0.3em;
+  margin-bottom: 0.3em;
+}
+
+#doc-box li ul {
+  margin-left: 0em;
+  padding-left: 1.25em;
+}
+
+#doc-box a {
+  color: var(--ibm-blue);
+}
+
+#doc-box a:visited {
+  color: var(--ibm-blue);
+}
+
+/*
+===============================================================================
+Basic HTML elements
+===============================================================================
+*/
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: var(--black-color);
+}
+
+b,
+strong {
+  color: var(--black-color);
+}
+
+p {
+  line-height: 1.25em;
+}
+
+pre {
+  font-size: 14px;
+  line-height: 1.3em;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  background-color: #f2f2f2;
+}
+
+pre.text {
+  padding: 1em;
+  background-color: #f2f2f2;
+}
+
+a {
+  color: black;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+a:visited {
+  color: black;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+i {
+  margin-right: 0.1em;
+  color: var(--ibm-blue);
+}
+
+em {
+  color: var(--em-color);
+}
+
+mark {
+  font-size: 1.3em;
+  font-family: monospace;
+  color: var(--mark-color);
+  background-color: white;
+}
+
+p code,
+dd code {
+  font-size: 1.2em;
+  background-color: #f2f2f2;
+  padding: 0.2em 0.3em;
+  border-radius: 3px;
+}
+
+table,
+th,
+td {
+  border: 1px solid darkgrey;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  padding: 0.5em 1em;
+  text-align: left;
+}
+
+th {
+  color: var(--black-color);
+  background-color: gainsboro;
+}
+
+td:first-child {
+  background-color: #f8f8f8;
+}
+
+
+/* 
+===============================================================================
+Documentation theme
+===============================================================================
+*/
+
+/* 
+===============================================================================
+Report elements
+===============================================================================
+*/
+
+pre.docstring {
+  padding: 1em;
+  background-color: #f2f2f2;
+}
+
+pre.call-trees {
+  padding: 1em;
+  background-color: #ccffcc;
+}
+
+pre.class-trees {
+  padding: 1em;
+  background-color: #ffcccc;
+}
+
+pre.imports-view {
+  padding: 1em;
+  background-color: #ccf2ff;
+}
+
+/* 
+===============================================================================
+Code blocks
+===============================================================================
+*/
+
+code.language-python {
+  background-color: var(--code-block);
+}
+
+.lang-name {
+  opacity: 0.6;
+  font-size: 0.9em;
+  padding-left: 1em;
+  font-style: italic;
+  font-family: monospace;
+}
+
+/* 
+===============================================================================
+Variable descriptions
+===============================================================================
+*/
+
+dl {
+  margin: 0;
+  padding: 0;
+}
+
+dd {
+  margin: 0;
+  padding: 0;
+  margin-left: 1.5em;
+  line-height: 1.3em;
+}
+
+span.vardef code {
+  font-size: 1.2em;
+  background-color: #f2f2f2;
+  vertical-align: middle;
+  padding: 0.2em 0.3em;
+  border-radius: 5px;
+}
+
+/* 
+===============================================================================
+Signatures
+===============================================================================
+*/
+
+pre.py-sign {
+  padding: 1em;
+  border-radius: 0;
+  border-left: #b30000 solid 4px;
+}
+
+pre.py-sign b {
+  color: black;
+}
+
+pre.py-sign span {
+  color: var(--ibm-blue);
+}

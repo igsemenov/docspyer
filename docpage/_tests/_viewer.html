@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>SVG Viewer</title>
+    <style>
+        body {
+            background: #2d2d2d;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .view-box {
+            margin: 5px;
+            width: fit-content;
+            background: white;
+        }
+
+        .svg-widget {
+            fill: gray;
+            stroke: gray;
+            stroke-width: 0;
+        }
+    </style>
+    <script src="_images.js"></script>
+</head>
+
+<body>
+
+    <div class="container">
+        <div id="contents" class="view-box"></div>
+        <div id="bookmark" class="view-box"></div>
+        <div id="homepage" class="view-box"></div>
+    </div>
+
+    <script>
+        document.getElementById("contents").innerHTML = imageContents;
+        document.getElementById("bookmark").innerHTML = imageBookmark;
+        document.getElementById("homepage").innerHTML = imageHomepage;
+    </script>
+
+</body>
+
+</html>
