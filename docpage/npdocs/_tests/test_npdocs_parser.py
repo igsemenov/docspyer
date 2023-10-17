@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.docpage.npdocs import parser
+from docspyer.docpage.npdocs import parser
 
 
 class TestParser(unittest.TestCase):
@@ -40,6 +40,7 @@ class TestFactories(unittest.TestCase):
         assert make_block('Notes\n---').is_section()
         assert make_block('Notes\n---').heading == 'Notes'
         assert make_block('Notes\n---').content == ''
+        assert make_block('Notes\n---\nText').content == 'Text'
 
     def test_factory_varlist(self):
 

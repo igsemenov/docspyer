@@ -3,3 +3,6 @@
 """
 
 from .convert import docasmd, docasrst
+
+npdocasmd = docasmd
+npdocasmd.__name__ = 'npdocasmd'

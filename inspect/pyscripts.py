@@ -16,7 +16,7 @@ __all__ = [
 
 
 def apiobj(obj):
-    obj.__module__ = 'docspy.inspect'
+    obj.__module__ = 'docspyer.inspect'
     return obj
 
 
@@ -47,7 +47,7 @@ def getscripts(dirpath):
 
 @apiobj
 class Scripts:
-    """Represents python scripts fetched from a certain folder.
+    """Represents python scripts fetched from a folder.
 
     Attributes
     ----------
@@ -70,6 +70,8 @@ class Scripts:
         )
 
     def getscripts(self) -> list:
+        """Returns records of the scripts.
+        """
         return list(
             dict.values(self.scripts)
         )

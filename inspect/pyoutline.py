@@ -236,11 +236,14 @@ class ScriptSketcher:
 class Annotator:
 
     PY_LINE_LIMIT = 79
-    NO_ANNOTATION = 'Failed to get annotation'
+    NO_ANNOTATION = 'Failed to get annotation.'
 
     def getannotation(self, text):
 
         text = text.strip()
+
+        if not text:
+            return self.NO_ANNOTATION
 
         firstline = self.get_first_line(text)
         firstsentence = self.get_first_sentence(firstline)
@@ -259,7 +262,9 @@ class Annotator:
         return len(line) < self.PY_LINE_LIMIT
 
     def get_first_line(self, text):
-        return text.splitlines().pop()
+        text = text.rstrip() + '\n'
+        firstline, *_ = text.splitlines()
+        return firstline
 
     def get_first_sentence(self, text):
         firstsentence, _, _ = str.rpartition(text + ' ', '. ')

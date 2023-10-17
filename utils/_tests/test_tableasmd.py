@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.utils.tableasmd import maketablemd
+from docspyer.utils.tableasmd import maketablemd
 
 
 def testrun(name):

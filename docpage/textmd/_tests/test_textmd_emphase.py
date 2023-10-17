@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.docpage.textmd import emphase
+from docspyer.docpage.textmd import emphase
 
 editor = emphase.edit_inline_md
 
@@ -19,8 +19,8 @@ TEXT_HTML = """
 <code>CODE</code>,
 <mark>&quot;MARK&quot;</mark>,
 <b>BOLD</b>,
-<i>ITALIC</i>,
-<b><i>STRONG</i></b>
+<em>ITALIC</em>,
+<b><em>STRONG</em></b>
 """
 
 LINK_MD = ' [Alfa](alfa.md) '
@@ -42,10 +42,10 @@ class TestPatterns(unittest.TestCase):
         assert editor('**TEXT**') == '<b>TEXT</b>'
 
     def test_asterisks_italics(self):
-        assert editor('*TEXT*') == '<i>TEXT</i>'
+        assert editor('*TEXT*') == '<em>TEXT</em>'
 
     def test_asterisks_bold_italix(self):
-        assert editor('***TEXT***') == '<b><i>TEXT</i></b>'
+        assert editor('***TEXT***') == '<b><em>TEXT</em></b>'
 
     def test_links(self):
         assert editor(LINK_MD) == LINK_HTML

@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.utils import treeashtml
+from docspyer.utils import treeashtml
 
 dumptree = treeashtml.dumptree_html
 

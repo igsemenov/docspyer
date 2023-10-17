@@ -12,7 +12,7 @@ from ..docpage import textmd
 from ..utils import treeashtml, texttrees
 
 __all__ = [
-    'docsource', 'builddocs', 'docsconfig'
+    'docsource', 'builddocs'
 ]
 
 apiobj = utils.apiobj
@@ -47,7 +47,7 @@ def docsource(srcpath, docpath, codeblocks=False) -> None:
 
 
 @apiobj
-def builddocs(srcpath, docpath, config=None) -> None:
+def builddocs(srcpath, docpath, **settings) -> None:
     """Assemble HTML documentation from MD source files.
 
     Parameters
@@ -56,9 +56,23 @@ def builddocs(srcpath, docpath, config=None) -> None:
         Path to the source directory.
     docpath : str
         Path where to place the output files.
-    config : dict
-        Configuration parameters, see `docsconfig()`.
-        If None, the default settings are used.
+    settings : dict
+        Configuration settings (see below).
+
+    Settings
+    --------
+    doclogo : str = None
+        Documentation logo as an SVG or HTML tag.
+        The recommended size is 30-40px.
+    codeblocks : bool = True 
+        Code highlighting is activated, if True.
+    swaplinks : bool = False
+        If True, links to MD files are converted 
+        to HTML ones across the source files.
+    extracss : str = None
+        Custom CSS styles to include (path or text).
+    extrajs : str = None
+        Custom JS code to include (path or text).
 
     """
 
@@ -68,48 +82,23 @@ def builddocs(srcpath, docpath, config=None) -> None:
     doc_builder = DocsBuilder()
 
     doc_builder.build_docs(
-        srcpath, docpath, config or {}
+        srcpath, docpath, settings
     )
 
 
-def what_is_config() -> str:
-    return "configuration parameters of the documentation builder"
-
-
-@apiobj
-@formatdoc(
-    configparams=what_is_config()
-)
 def docsconfig() -> dict:
-    """Returns a template for setting {configparams}.
-
-    The template is a dictionary where:
+    """Returns the default settings of the documentation builder.
 
     - The keys are the parameters names.
-    - The values specify the default settings.
-
-    Keys
-    ----
-    doclogo : str = ''
-        Documentation logo as an SVG or HTML tag.
-        The recommended size is 30-40px.
-    codeblocks : bool = True 
-        Code highlighting is activated, if True.
-    swaplinks : bool = False
-        If True, links to MD files are converted 
-        to HTML ones across the source files.
-    extracss : str = ''
-        Custom CSS styles to include.
-    extrajs : str = ''
-        Custom JS code to include.
+    - The values are the default settings.
 
     """
     return {
-        'doclogo': '',
+        'doclogo': None,
         'codeblocks': True,
         'swaplinks': False,
-        'extracss': '',
-        'extrajs': ''
+        'extracss': None,
+        'extrajs': None
     }
 
 
@@ -123,20 +112,25 @@ class DocsBuilder:
         self._docdir = None
         self._config = None
 
+        self.set_source_files()
+
+    def set_source_files(self):
+        self.source_files = SourceFiles()
+
     def build_docs(self, srcdir, docdir, config):
 
         self._srcdir = srcdir
         self._docdir = docdir
         self._config = docsconfig() | config
 
-        sources = self.get_sources()
+        sources = self.get_files()
         self.edit_sources(sources.files)
 
         self.doc_sources(sources.files)
         self.dump_static(sources.contents)
 
-    def get_sources(self):
-        return SourceFiles().set_sources(self._srcdir)
+    def get_files(self):
+        return self.source_files.set_sources(self._srcdir)
 
     def edit_sources(self, files):
 
@@ -148,6 +142,8 @@ class DocsBuilder:
             file.dumpdocpage(self._docdir)
 
     def dump_static(self, contents):
+
+        contents = self.edit_global_toc(contents)
 
         settings = pagemaker.PageParamsJS()
 
@@ -162,30 +158,44 @@ class DocsBuilder:
             self._docdir, settings=settings, highlights=codeblocks
         )
 
-        self.add_extra_css_if_any()
-        self.add_extra_js_if_any()
+        self.add_extra_css()
+        self.add_extra_js()
 
     def swaplinks(self, files):
         for file in files.values():
             file.swaplinks()
 
-    def add_extra_css_if_any(self):
-        getattr(self, 'add_extra_static')(mode='css')
+    def edit_global_toc(self, contents):
+        return self.add_css_classes(contents)
 
-    def add_extra_js_if_any(self):
-        getattr(self, 'add_extra_static')(mode='js')
+    def add_css_classes(self, contents):
 
-    def add_extra_static(self, mode):
+        css = 'class="global-toc__top-item"'
 
-        extracode = self._config['extra' + mode]
+        toplink = '^    <li><a'
+        newlink = '    <li><a CSS'.replace('CSS', css)
 
-        if not extracode:
+        return re.sub(
+            toplink, newlink, contents, flags=re.MULTILINE
+        )
+
+    def add_extra_css(self):
+        self.add_extra_static(ext='css')
+
+    def add_extra_js(self):
+        self.add_extra_static(ext='js')
+
+    def add_extra_static(self, ext):
+
+        codespec = self._config['extra' + ext]
+
+        if not codespec:
             return
 
-        extracode = '/* Custom code */\n\n' + extracode
+        extracode = utils.read_file_or_str(codespec)
 
         filepath = os.path.join(
-            self._docdir, 'docpage.' + mode
+            self._docdir, 'docpage.' + ext
         )
 
         content = utils.read_file(filepath)
@@ -270,7 +280,7 @@ class SourceFiles:
         if 'index.md' in os.listdir(srcdir):
             return
 
-        raise NoIndexFileError(
+        raise NoIndexFile(
             f"no 'index.md' in the source directory: {srcdir}"
         )
 
@@ -287,6 +297,16 @@ class SourceFile:
     meta : dict
         Settings for the pagemaker.
 
+    """
+
+    META_EXAMPLE = """
+    <!--
+    {
+      "webtitle": "WEBTITLE",
+      "doctitle": "DOCTITLE",
+      "codeblocks": true/false
+    }
+    -->
     """
 
     def __init__(self):
@@ -337,7 +357,7 @@ class SourceFile:
         except json.JSONDecodeError:
             pass
 
-        raise FileMetaDataError(
+        raise BrokenFileMeta(
             f"JSON metadata for '{self._filename}' cannot be parsed"
         )
 
@@ -415,42 +435,33 @@ class SourceFile:
         return pagemaker.makedocpage(sourcemd, settings)
 
     def swaplinks(self):
+        self.edit_md_links()
+        self.edit_html_links()
 
-        def swaplink(matchobj):
-            return matchobj.group().replace(
-                '.md', '.html'
-            )
+    def edit_md_links(self):
 
         md_link = re.compile(
-            '\s\[\w{1,}\]\([\w.#]{0,}\)'
+            '\]\([\w.#-]{0,}\)'
         )
+
+        self.text = re.sub(
+            md_link, self.swaplink, self.text
+        )
+
+    def edit_html_links(self):
 
         html_link = re.compile(
-            '<a\s{1,}href="[\w.#]{0,}"'
+            '<a\s{1,}href="[\w.#-]{0,}"'
         )
 
         self.text = re.sub(
-            md_link, swaplink, self.text
+            html_link, self.swaplink, self.text
         )
 
-        self.text = re.sub(
-            html_link, swaplink, self.text
+    def swaplink(self, matchobj):
+        return matchobj.group().replace(
+            '.md', '.html'
         )
-
-    def show_example_meta(self):
-
-        meta = {
-            "webtitle": 'WEBTITLE',
-            "doctitle": "TITLE",
-            "annotation": "ANNOTATION",
-            "codeblocks": "true/false"
-        }
-
-        meta_json = self.render_json(meta)
-        print(meta_json)
-
-    def render_json(self, meta):
-        return json.dumps(meta, indent=2)
 
 
 class IndexFile(SourceFile):
@@ -467,6 +478,13 @@ class IndexFile(SourceFile):
     toc : str
         Global TOC as an HTML list.
 
+    """
+
+    TOC_EXAMPLE = """
+    ## Contents
+
+    - [Section](*.md)
+      - [Subsection](*.md)
     """
 
     def __init__(self):
@@ -506,7 +524,13 @@ class IndexFile(SourceFile):
         return newsource, tocashtml
 
     def update_contents(self, source, oldtoc, newtoc):
+        newtoc = self.add_toc_class(newtoc)
         return source.replace(oldtoc, newtoc)
+
+    def add_toc_class(self, newtoc):
+        return newtoc.replace(
+            '<p>\n<ul>', '<p>\n<ul class="ref-list" id="index-toc">'
+        )
 
     def fetch_contents(self, sourcemd):
         tocfetcher = self.fetch_contents_
@@ -557,7 +581,7 @@ class IndexFile(SourceFile):
             errmsg = "no TOC in 'Contents' section of 'index.md'"
 
         if errmsg:
-            raise TocNotFoundError(errmsg)
+            raise TocNotFound(errmsg)
 
         return blocks[index+1]
 
@@ -602,23 +626,35 @@ class TocHandler:
         return indent + '- ' + link
 
     def md_link_to_html(self, link):
+
         name, _, path = link.strip('[)').partition('](')
-        return f'<a href="{path}">{name}</a>'.replace('.md', '.html')
+
+        if not path:
+            return self.inactive_link_no_path(name)
+
+        path = path.replace('.md', '.html')
+        return self.active_link_with_path(name, path)
+
+    def active_link_with_path(self, name, path):
+        return f'<a href="{path}">{name}</a>'
+
+    def inactive_link_no_path(self, name):
+        return f'<a href="" style="pointer-events: none;">{name}</a>'
 
     def assemble(self, lines):
         return '\n'.join(lines)
 
 
-class NoIndexFileError(Exception):
+class NoIndexFile(Exception):
     """Raised when 'index.md' is not found in the source directory.
     """
 
 
-class TocNotFoundError(Exception):
+class TocNotFound(Exception):
     """Raised when the global TOC cannot be fetched from 'index.md'.
     """
 
 
-class FileMetaDataError(Exception):
+class BrokenFileMeta(Exception):
     """Raised when JSON metadata for a source file cannot be parsed.
     """

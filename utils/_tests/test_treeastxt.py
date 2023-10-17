@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.utils.treeastxt import dumptree_txt
+from docspyer.utils.treeastxt import dumptree_txt
 
 NO_HEADER_NO_NESTED = """
 • +

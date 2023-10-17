@@ -55,7 +55,7 @@ class TextPrinter(BasePrinter):
 class TextPrinterMD(TextPrinter):
 
     def render_content(self, content):
-        return self.emphasize(content)
+        return self.dump_as_it_is(content)
 
 
 class TextPrinterRST(TextPrinter):
@@ -160,7 +160,7 @@ class VarlistPrinterRST(VarlistPrinter):
 
 class VarPrinter:
 
-    CIRC = '●'
+    VARSYMB = ''
 
     def printvar(self, varrec) -> str:
 
@@ -205,7 +205,7 @@ class VarPrinter:
         if ' : ' in vardef:
             return vardef
 
-        vardef = vardef.lstrip(self.CIRC + ' ')
+        vardef = vardef.removeprefix(self.VARSYMB)
         vardef = vardef.replace('<code>', '<em>')
         vardef = vardef.replace('</code>', '</em>')
 
@@ -214,7 +214,7 @@ class VarPrinter:
     def render_varname(self, varname):
         if not varname:
             return ''
-        return self.CIRC + chr(32) + f'<code>{varname}</code>'
+        return self.VARSYMB + f'<code>{varname}</code>'
 
     def render_vartype(self, vartype):
         if not vartype:

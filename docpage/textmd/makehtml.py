@@ -1,17 +1,27 @@
 # -*- coding: utf-8 -*-
-"""Converts MD text to an HTML document.
+"""Converts MD text to an HTML doc (object).
 """
 
 import itertools as itr
 import textwrap
 
-from docspy.utils import githubids
-from docspy.utils import texttrees
-from docspy.utils import treeashtml
+from docspyer.utils import githubids
+from docspyer.utils import texttrees
+from docspyer.utils import treeashtml
 from . import parser
 
+__all__ = [
+    'makedochtml'
+]
 
-def makedochtml(text) -> str:
+
+def apiobj(obj):
+    obj.__module__ = 'docspyer.docpage'
+    return obj
+
+
+@apiobj
+def makedochtml(text):
     """Translates MD text to an HTML document.
 
     Parameters
@@ -22,11 +32,20 @@ def makedochtml(text) -> str:
     Returns
     -------
     DocHTML
-        Object that holds the resulting HTML text with TOC.
+        Object that holds the resulting HTML text and TOC
+        as the attributes `text` and `toc`, respectively.
+
+    Notes
+    -----
+
+    TOC features:
+
+    - Build as an HTML list based on MD headings.
+    - Contains ready-to-use links with github-style IDs.
 
     """
     docmaker = DocMaker()
-    return docmaker.makedoc(text)
+    return docmaker.make_dochtml(text)
 
 
 class DocHTML:
@@ -37,7 +56,7 @@ class DocHTML:
     text : str
         Text of the document.
     toc : str
-        Table of contents based on headings (links included).
+        TOC based on MD headings (links included).
 
     """
 
@@ -50,31 +69,24 @@ class DocMaker:
     """Converts an MD text to an HTML document.
     """
 
-    def __init__(self):
-        self.set_tocmaker()
-
-    def set_tocmaker(self):
-        self.tocmaker = TOCMaker()
-
-    def makedoc(self, text):
+    def make_dochtml(self, text):
 
         if not text:
             return DocHTML('', '')
 
         blocks = self.get_blocks(text)
 
-        headings = self.fetch_headings_from_blocks(blocks)
+        headings = self.take_headings_from_blocks(blocks)
         toc = self.make_toc_from_headings(headings)
         text = self.dump_blocks_to_text(blocks)
 
-        return self.make_doc_html(text, toc)
+        return self.make_instance(text, toc)
 
-    def make_doc_html(self, text, toc):
+    def make_instance(self, text, toc):
         return DocHTML(text, toc)
 
     def make_toc_from_headings(self, headings):
-        toc_maker = self.tocmaker.maketoc
-        return toc_maker(headings)
+        return TOCMaker().maketoc(headings)
 
     def get_blocks(self, text) -> list:
         return self.run_parser(text)
@@ -87,7 +99,7 @@ class DocMaker:
     def run_parser(self, text) -> list:
         return parser.parsetext(text)
 
-    def fetch_headings_from_blocks(self, blocks) -> list:
+    def take_headings_from_blocks(self, blocks) -> list:
         def is_heading(block):
             return type(block).__name__ == 'MDHeading'
         return list(
@@ -96,7 +108,11 @@ class DocMaker:
 
 
 class TOCMaker:
-    """Makes table of contents (TOC) from a list of headings.
+    """Makes TOC from MD headings.
+
+    - TOC is built as an HTML list with links as items.
+    - Links include ready-to-use IDs in github format.
+
     """
 
     def maketoc(self, headings):
@@ -104,32 +120,32 @@ class TOCMaker:
         if not headings:
             return ''
 
-        toc_as_textlist = self.make_toc_as_text_list(headings)
-        treeroot = self.make_tree_from_text_list(toc_as_textlist)
+        toclist = self.make_toc_as_list(headings)
+        treeroot = self.make_tree_from_list(toclist)
 
-        return self.dump_tree_to_html_list(treeroot)
+        return self.dump_tree_to_html(treeroot)
 
-    def dump_tree_to_html_list(self, root):
+    def dump_tree_to_html(self, root):
         return treeashtml.dumptree_html(root)
 
-    def make_tree_from_text_list(self, textlist):
+    def make_tree_from_list(self, textlist):
         return texttrees.maketree(textlist)
 
-    def make_toc_as_text_list(self, headings):
+    def make_toc_as_list(self, headings):
 
-        links = self.make_links_with_githubdids(headings)
+        links = self.get_links_with_githubdids(headings)
 
         levels = [
             heading.get_level() for heading in headings
         ]
 
-        items = self.arrange_links_as_list_items(links, levels)
-        textlist = self.assemble_items(items)
+        items = self.put_links_at_indents(links, levels)
+        textlist = self.assemble(items)
 
         textlist = textwrap.dedent(textlist)
         return textlist
 
-    def make_links_with_githubdids(self, headings):
+    def get_links_with_githubdids(self, headings):
 
         def make_atag(path, text):
             return f'<a href="#{path}">{text}</a>'
@@ -144,7 +160,7 @@ class TOCMaker:
             itr.starmap(make_atag, zip(paths, texts))
         )
 
-    def arrange_links_as_list_items(self, links, levels):
+    def put_links_at_indents(self, links, levels):
 
         def add_listiter(item):
             return '- ' + item
@@ -162,5 +178,5 @@ class TOCMaker:
 
         return items
 
-    def assemble_items(self, items):
+    def assemble(self, items):
         return '\n'.join(items)

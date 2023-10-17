@@ -53,8 +53,10 @@ class ParReader:
 
     sections = (
         'Notes',
+        'Methods',
         'Examples',
-        'See Also'
+        'See Also',
+        'Notations'
     )
 
     varlists = (
@@ -62,6 +64,7 @@ class ParReader:
         'Attributes',
         'Settings',
         'Returns',
+        'Raises',
         'Keys'
     )
 

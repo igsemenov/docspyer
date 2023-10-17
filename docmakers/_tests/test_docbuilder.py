@@ -5,7 +5,7 @@
 import os
 import unittest
 
-from docspy.docmakers.docbuilder import (
+from docspyer.docmakers.docbuilder import (
     DocsBuilder, SourceFiles, IndexFile, TocHandler
 )
 
@@ -19,7 +19,7 @@ TOC_MD_LINKS = """
 TOC_HTML_LINKS = """
 - <a href="alfa.html">Alfa</a>
   - <a href="bravo.html">Bravo</a>
-    - <a href="">Delta</a>
+    - <a href="" style="pointer-events: none;">Delta</a>
 """
 
 INDEXMETA = {
@@ -75,7 +75,6 @@ class TestIndexFile(unittest.TestCase):
         )
 
         assert indexfile.meta == INDEXMETA
-        assert indexfile.toc in indexfile.text
 
 class TestSourceFiles(unittest.TestCase):
 

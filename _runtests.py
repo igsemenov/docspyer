@@ -15,6 +15,7 @@ dirnames = [
     'docmakers'
 ]
 
+
 for dirname in dirnames:
 
     dirsuite = unittest.TestLoader().discover(

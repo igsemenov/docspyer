@@ -216,14 +216,15 @@ docPage.pagelogo = `<svg width="35" height="35" viewbox="0 0 30 30">
 <path d="M 29 29 v -26 l -26 26 h 26" fill="#ffd43b" stroke="#ffd43b" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" />
 <circle cx="15" cy="15" r="6" fill="white" />
 <circle cx="15" cy="15" r="4" fill="silver" />
-</svg><p id="logo-title">Docspy</p>`;
+</svg><p id="logo-title">docspyer</p>`;
 docPage.contents = `<p>
 <ul>
-    <li><a href="usage.html">Usage</a></li>
-    <li><a href="modules.html">Modules</a>
+    <li><a class="global-toc__top-item" href="usage.html">Usage</a></li>
+    <li><a class="global-toc__top-item" href="docspyer.html">Reference</a></li>
+    <li><a class="global-toc__top-item" href="appendix.html">Appendix</a>
         <ul>
-            <li><a href="docspy.html">docspy</a></li>
-            <li><a href="docspy.inspect.html">docspy.inspect</a></li>
+            <li><a href="markdown.html">Markdown</a></li>
+            <li><a href="" style="pointer-events: none;">Docstrings</a></li>
         </ul>
     </li>
 </ul>

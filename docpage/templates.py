@@ -1,9 +1,18 @@
 # -*- coding: utf-8 -*-
-"""Template files for docpages.
+"""Template files used to create docpages.
 """
 
 import os
 from . import anchors
+
+__all__ = [
+    'PageParamsJS', 'PageParamsHTML'
+]
+
+
+def apiobj(obj):
+    obj.__module__ = 'docspyer.docpage'
+    return obj
 
 
 def get_path_to_templates() -> str:
@@ -100,30 +109,30 @@ class DocPageHTML(MutableDoc):
 
         return source
 
-    def add_headers(self, source):
+    def add_headers(self, temp):
 
-        source = self.anchors_headers['webtitle'].replace_anchor(
-            source, newdata=self.settings.webtitle
+        temp = self.anchors_headers['webtitle'].replace_anchor(
+            temp, self.settings.webtitle
         )
 
-        source = self.anchors_headers['annotation'].replace_anchor(
-            source, newdata=self.settings.annotation
+        temp = self.anchors_headers['annotation'].replace_anchor(
+            temp, self.settings.annotation
         )
 
-        source = self.anchors_headers['doctitle'].replace_anchor(
-            source, newdata=self.settings.doctitle
+        temp = self.anchors_headers['doctitle'].replace_anchor(
+            temp, self.settings.doctitle
         )
 
-        return source
+        return temp
 
     def add_content(self, source):
 
         source = self.anchors_content['localtoc'].replace_anchor(
-            source, newdata=self.settings.localtoc
+            source, self.settings.localtoc
         )
 
         source = self.anchors_content['pagetext'].replace_anchor(
-            source, newdata=self.settings.pagetext
+            source, self.settings.pagetext
         )
 
         return source
@@ -193,15 +202,15 @@ class DocPageJS(MutableDoc):
     def add_anchors(self, source):
 
         source = self.anchors['pagelogo'].replace_anchor(
-            source, newdata=self.settings.pagelogo
+            source, self.settings.pagelogo
         )
 
         source = self.anchors['contents'].replace_anchor(
-            source, newdata=self.settings.contents
+            source, self.settings.contents
         )
 
         source = self.anchors['homepage'].replace_anchor(
-            source, newdata=self.settings.homepage
+            source, self.settings.homepage
         )
 
         return source
@@ -219,8 +228,9 @@ class HighlightsCSS(Template):
     sourcename = 'default.min.css'
 
 
+@apiobj
 class PageParamsHTML:
-    """Settings for 'docpage.html'.
+    """Settings added to the template file `docpage.html`.
 
     Attributes
     ----------
@@ -231,11 +241,17 @@ class PageParamsHTML:
     annotation : str = ''
         Annotation of the document.
     localtoc : str = ''
-        Local TOC as an HTML list in a paragraph.
+        Local TOC as an HTML list inside a paragraph.
     pagetext : str = ''
         Content of a docpage as text in HTML.
     highilights : bool = False
-       Code highlighting is activated, if True.
+       Code highlighting is activated, if True (a).
+
+    Notes
+    -----
+
+    (a) — Links to static files are added,
+          call of JS based highlighter is included.
 
     """
 
@@ -249,15 +265,16 @@ class PageParamsHTML:
         self.highlights = False
 
 
+@apiobj
 class PageParamsJS:
-    """Settings for 'docpage.js'.
+    """Settings added to the template file `docpage.js`.
 
     Attributes
     ----------
     pagelogo : str = ''
         Page logo as an SVG or HTML tag.
     contents : str = ''
-        Global TOC as an HTML list in a paragraph.
+        Global TOC as an HTML list inside a paragraph.
     homepage : str = ''
         Path to the homepage.
 

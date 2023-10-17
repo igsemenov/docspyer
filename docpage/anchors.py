@@ -1,10 +1,25 @@
 # -*- coding: utf-8 -*-
-"""Placeholders in mutable templates.
+"""Text chunks that are replaced in templates.
 
-Mutable templates are:
+- Anchors are present in mutable templates only.
+- Anchors take templates from the outside at runtime.
+- Anchors replace themself in templates and returns the result.
 
-- 'docpage.htm'
+Public methods:
+
+    Anchor().replace_anchor(temp, data=None) → str
+    Anchor().remove_anchor(temp) → str
+
+Mutable templates:
+
 - 'docpage.js'
+- 'docpage.htm'
+
+Static templates:
+
+- 'docpage.css'
+- 'default.min.css'
+- 'highlight.min.js'
 
 """
 
@@ -12,128 +27,122 @@ import re
 import textwrap
 
 
+def todefine(obj):
+    return obj
+
+
 class Anchor:
     """Base class for anchors.
 
     Attributes
     ----------
-    text : str
+    TEXT : str
         Anchor text.
 
     """
 
-    text = None
+    TEXT = ''
 
     def __init__(self):
         self._indent = None
         self._lineno = None
-        self.set_text()
 
-    def set_text(self):
-        self.text = self.__class__.text
-
-    def replace_anchor(self, source, newdata=None):
-        """Replaces the anchor in a source document.
+    def replace_anchor(self, temp, data=None):
+        """Replaces the anchor in a template.
 
         Parameters
         ----------
-        source : str
-            Source document that contains the anchor.
-        newdata : str
-            Data for making the anchor substitute.
+        temp : str
+            Template that contains the anchor.
+        data : str
+            Data to make the anchor replacement.
 
         Returns
         -------
         str
-            The new source document.
+            The resulting document.
 
         """
 
-        self.set_internal_vars(source)
+        self.find_anchor(temp)
 
-        newval = self.make_substitute(newdata)
-        source = self.put_substitute(source, newval)
+        repl = self.set_replacement(data)
+        resdoc = self.put_replacement(temp, repl)
 
         self._lineno = None
         self._indent = None
 
-        return source
+        return resdoc
 
-    def set_internal_vars(self, source):
-        self._lineno = self.find_line_with_anchor(source)
-        self._indent = self.get_anchor_indent(source)
-
-    def remove_anchor(self, source) -> str:
-        """Removes anchor from the source document.
+    def remove_anchor(self, temp) -> str:
+        """Removes the anchor from a template.
 
         Returns
         -------
         str
-            The new source document.
+            The resulting document.
 
         """
 
-        self._lineno = self.find_line_with_anchor(source)
+        lineno = self.find_anchor_line(temp)
+        resdoc = self.remove_anchor_line(temp, lineno)
 
-        source = self.remove_line_with_anchor(source)
+        return resdoc
 
-        self._lineno = None
-        return source
+    def find_anchor(self, temp):
+        self._lineno = self.find_anchor_line(temp)
+        self._indent = self.find_anchor_indent(temp)
 
-    def make_substitute(self, newdata=None) -> str:
-        """TBD
+    @todefine
+    def set_replacement(self, data=None) -> str:
+        """Makes the anchor replacement.
         """
-        return self.text.replace('STUB', newdata)
 
-    def put_substitute(self, source, substitute) -> str:
-        """TBD
+    @todefine
+    def put_replacement(self, temp, repl) -> str:
+        """Inserts the anchor replacement into the template.
         """
-        return self.replace_anchor_in_line(source, substitute)
 
-    # Utils
+    def replace_anchor_in_line(self, temp, repl) -> str:
 
-    def replace_anchor_in_line(self, source, substitue) -> str:
+        lines = temp.splitlines(True)
 
         index = self._lineno
-        lines = source.splitlines(True)
-
-        lines[index] = lines[index].replace(self.text, substitue)
+        lines[index] = lines[index].replace(self.TEXT, repl)
 
         return ''.join(lines)
 
-    def replace_line_where_anchor(self, source, substitute) -> str:
+    def replace_line_where_anchor(self, temp, repl) -> str:
+
+        lines = temp.splitlines(True)
 
         index = self._lineno
-        lines = source.splitlines(True)
-
-        lines[index] = substitute.rstrip('\n') + '\n'
+        lines[index] = repl.rstrip('\n') + '\n'
 
         return ''.join(lines)
 
-    def remove_line_with_anchor(self, source) -> str:
+    def remove_anchor_line(self, temp, lineno) -> str:
 
-        index = self._lineno
-        lines = source.splitlines(True)
-
-        lines.pop(index)
+        lines = temp.splitlines(True)
+        lines.pop(lineno)
 
         return ''.join(lines)
 
-    def get_anchor_indent(self, source) -> int:
+    def find_anchor_indent(self, temp) -> int:
+
+        lines = temp.splitlines(True)
 
         index = self._lineno
-        lines = source.splitlines(True)
-
         line = lines[index]
 
         return len(line) - len(str.lstrip(line))
 
-    def find_line_with_anchor(self, source) -> int | None:
+    def find_anchor_line(self, temp) -> int | None:
 
-        lines = source.splitlines(True)
+        lines = temp.splitlines(True)
 
         for index, line in enumerate(lines):
-            if line.strip() == self.text:
+            if line.strip() == self.TEXT:
                 return index
 
         return None
@@ -150,31 +159,34 @@ class Header(Anchor):
 
     """
 
-    re_header = '(Docpage|Title|Annotation)'
+    RE_HEADER = '(Docpage|Title|Annotation)'
 
-    def make_substitute(self, newdata=None):
+    def set_replacement(self, data=None):
 
-        if newdata is None:
-            return self.text
+        if data is None:
+            return self.TEXT
 
+        return self.re_sub_header_data_text(data)
+
+    def put_replacement(self, temp, repl) -> str:
+        return self.replace_anchor_in_line(temp, repl)
+
+    def re_sub_header_data_text(self, data):
         return re.sub(
-            self.re_header, newdata, self.text
+            self.RE_HEADER, data, self.TEXT
         )
-
-    def put_substitute(self, source, substitute) -> str:
-        return self.replace_anchor_in_line(source, substitute)
 
 
 class Webtitle(Header):
-    text = '<title>Docpage</title>'
+    TEXT = '<title>Docpage</title>'
 
 
 class Doctitle(Header):
-    text = '<h1 id="title-box__title">Title</h1>'
+    TEXT = '<h1 id="title-box__title">Title</h1>'
 
 
 class Annotation(Header):
-    text = '<h2 id="title-box__annotation">Annotation</h2>'
+    TEXT = '<h2 id="title-box__annotation">Annotation</h2>'
 
 
 class PageContent(Anchor):
@@ -187,39 +199,34 @@ class PageContent(Anchor):
 
     """
 
-    def make_substitute(self, newdata=None):
-        if newdata is None:
-            return self.text
-        return newdata
+    def set_replacement(self, data=None):
+        if data is None:
+            return self.TEXT
+        return self.take_user_data_asis(data)
 
-    def put_substitute(self, source, substitute) -> str:
-        handler = self.assign_handler()
-        return handler(source, substitute)
+    def put_replacement(self, temp, repl) -> str:
+        return self.replace_line_where_anchor(temp, repl)
 
-    def assign_handler(self):
-        return self.replace_anchor_in_line
+    def take_user_data_asis(self, data):
+        return data
 
 
 class LocalTOC(PageContent):
 
-    text = '<!--local-toc-->'
+    TEXT = '<!--local-toc-->'
 
-    def make_substitute(self, newdata=None):
-
-        if newdata is None:
-            return self.text
-
+    def take_user_data_asis(self, data):
         return textwrap.indent(
-            newdata, prefix=self._indent*chr(32)
+            data, prefix=self._indent*chr(32)
         )
-
-    def assign_handler(self):
-        return self.replace_line_where_anchor
 
 
 class PageText(PageContent):
 
-    text = '<!--page-text-->'
+    TEXT = '<!--page-text-->'
+
+    def take_user_data_asis(self, data):
+        return data + '\n\n<hr>'
 
 
 class PageSettings(Anchor):
@@ -233,29 +240,32 @@ class PageSettings(Anchor):
 
     """
 
-    def make_substitute(self, newdata=None):
+    def set_replacement(self, data=None):
 
-        if newdata is None:
-            return self.text
+        if data is None:
+            return self.TEXT
 
+        return self.text_repl_eqnull_eqdata(data)
+
+    def put_replacement(self, temp, repl) -> str:
+        return self.replace_anchor_in_line(temp, repl)
+
+    def text_repl_eqnull_eqdata(self, data):
         return str.replace(
-            self.text, '= null;', f'= `{newdata}`;'
+            self.TEXT, '= null;', f'= `{data}`;'
         )
-
-    def put_substitute(self, source, substitute) -> str:
-        return self.replace_anchor_in_line(source, substitute)
 
 
 class PageLogo(PageSettings):
-    text = 'docPage.pagelogo = null;'
+    TEXT = 'docPage.pagelogo = null;'
 
 
 class GlobalTOC(PageSettings):
-    text = 'docPage.contents = null;'
+    TEXT = 'docPage.contents = null;'
 
 
 class HomePage(PageSettings):
-    text = 'docPage.homepage = null;'
+    TEXT = 'docPage.homepage = null;'
 
 
 class Highlight(Anchor):
@@ -263,31 +273,33 @@ class Highlight(Anchor):
 
     Settings are:
 
-    - Static links to JS/CSS files.
-    - Function call in the body-script.
+    - Links to static JS/CSS files.
+    - JS call in the body-script.
 
     """
 
-    repl = None
+    REPL = ''
 
-    def make_substitute(self, newdata=None):
-        newdata = self.repl
-        return newdata
+    def set_replacement(self, data=None):
+        return self.push_prescribed_repl()
 
-    def put_substitute(self, source, substitute) -> str:
-        return self.replace_anchor_in_line(source, substitute)
+    def put_replacement(self, temp, repl) -> str:
+        return self.replace_anchor_in_line(temp, repl)
+
+    def push_prescribed_repl(self):
+        return self.REPL
 
 
 class HighlightJS(Highlight):
-    text = '<!--highlights-js-->'
-    repl = '<script src="highlight.min.js"></script>'
+    TEXT = '<!--highlights-js-->'
+    REPL = '<script src="highlight.min.js"></script>'
 
 
 class HighlightCSS(Highlight):
-    text = '<!--highlights-css-->'
-    repl = '<link rel="stylesheet" href="default.min.css">'
+    TEXT = '<!--highlights-css-->'
+    REPL = '<link rel="stylesheet" href="default.min.css">'
 
 
 class HighlightFunc(Highlight):
-    text = '/*highlights-func*/'
-    repl = 'hljs.highlightAll();'
+    TEXT = '/*highlights-func*/'
+    REPL = 'hljs.highlightAll();'

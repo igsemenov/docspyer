@@ -1,15 +1,25 @@
 # -*- coding: utf-8 -*-
-"""Makes HTML docpages from MD files.
+"""Creates HTML docpages from MD files.
 """
 
 import os
 from . import templates
 from .textmd import makehtml
 
+__all__ = [
+    'makedocpage', 'dumpstatic'
+]
+
 PageParamsJS = templates.PageParamsJS
 PageParamsHTML = templates.PageParamsHTML
 
 
+def apiobj(obj):
+    obj.__module__ = 'docspyer.docpage'
+    return obj
+
+
+@apiobj
 def makedocpage(sourcemd, settings=None):
     """Generates an HTML docpage from an MD source file.
 
@@ -18,18 +28,24 @@ def makedocpage(sourcemd, settings=None):
     sourcemd : str
         Content of the docpage in MD.
     settings : PageParamsHTML
-        Settings of a docpage.
+        Settings of a docpage (a).
 
     Returns
     -------
     str
         The resulting HTML page.
 
+    Notes
+    -----
+
+    (a) — Replaced by `PageParamsHTML()`, if None.
+
     """
     page_maker = DocPageMaker()
     return page_maker.make_page(sourcemd, settings)
 
 
+@apiobj
 def dumpstatic(dirpath, settings=None, highlights=False):
     """Dumps static JS/CSS files to the specified folder.
 
@@ -38,9 +54,16 @@ def dumpstatic(dirpath, settings=None, highlights=False):
     dirpath : str
         Path where to dump the files.
     settings : PageParamsJS
-        Static docpage parameters.
+        Static docpage parameters (a).
     highlights : bool
-        Code highlighting is added, if True.
+        Code highlighting is activated, if True (b).
+
+    Notes
+    -----
+
+    (a) — Replaced by `PageParamsJS()`, if None.
+
+    (b) — Additional static files are copied.
 
     """
 

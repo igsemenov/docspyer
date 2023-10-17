@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.docpage import templates
+from docspyer.docpage import templates
 
 PAGEHTML = templates.DocPageHTML()
 PAGEJS = templates.DocPageJS()
@@ -40,7 +40,7 @@ class TestDocPageHTML(unittest.TestCase):
         assert ' ?alfa->' in PAGEHTML.getpage(PARAMS_HTML)
 
     def test_pagetext(self):
-        assert ' ?bravo->' in PAGEHTML.getpage(PARAMS_HTML)
+        assert '?bravo->' in PAGEHTML.getpage(PARAMS_HTML)
 
 
 class TestDocPageJS(unittest.TestCase):

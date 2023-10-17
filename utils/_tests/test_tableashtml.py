@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.utils.tableashtml import maketablehtml
+from docspyer.utils.tableashtml import maketablehtml
 
 
 def testrun(name):

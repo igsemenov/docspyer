@@ -3,8 +3,8 @@
 """
 
 import unittest
-from docspy.utils import treeastxt
-from docspy.utils.texttrees import maketree, TextSplitter
+from docspyer.utils import treeastxt
+from docspyer.utils.texttrees import maketree, TextSplitter
 
 dumptree = treeastxt.dumptree_txt
 

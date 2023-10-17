@@ -2,7 +2,7 @@
 """Test widgets for the docpage template.
 """
 
-from docspy.docpage import widgets
+from docspyer.docpage import widgets
 
 
 def send_images(contents, bookmark, homepage):

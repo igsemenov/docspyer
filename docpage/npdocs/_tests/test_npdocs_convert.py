@@ -5,7 +5,7 @@
 import os
 import inspect
 import unittest
-from docspy.docpage.npdocs import convert
+from docspyer.docpage.npdocs import convert
 
 
 def myfunc():

@@ -11,20 +11,16 @@
             margin: 0;
             margin-left: 1em;
             margin-right: 1em;
+            display: flex;
+            flex-direction: column;
         }
 
         pre {
             font-size: 1.5em;
         }
 
-        .colorBox {
-            margin-top: 0.5em;
-            margin-bottom: 0.5em;
-        }
-
         .colorBox div {
             height: 50px;
-            margin-top: 0.5em;
         }
     </style>
 </head>
@@ -41,10 +37,15 @@
     <!-- pythonic -->
     <div class="colorBox">
         <h2> pythonic </h2>
-        <div class="colorBox">
-            <div style="background: linear-gradient(90deg, #306998 50%, #ffd43b 50%);"></div>
-            <pre>background: linear-gradient(90deg, #306998 50%, #ffd43b 50%);</pre>
-        </div>
+        <div style="background: linear-gradient(90deg, #306998 50%, #ffd43b 50%);"></div>
+        <pre>background: linear-gradient(90deg, #306998 50%, #ffd43b 50%);</pre>
+    </div>
+
+    <!-- ibm-blue -->
+    <div class="colorBox">
+        <h2> ibm-blue </h2>
+        <div style="background-color: #0530ad;"></div>
+        <pre>background-color: #0530ad;</pre>
     </div>
 
 </body>

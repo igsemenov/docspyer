@@ -1,11 +1,16 @@
 # -*- coding: utf-8 -*-
-"""Creates an overview of your Python code.
+"""High-level documentation tools.
 """
 
 from .docmakers.pyreporters import *
 from .docmakers.docbuilder import *
-from .docmakers.pyrecorder import *
 from .docmakers.utils import *
+from .docmakers.docmods import *
+from .inspect.pydocmd import *
+from .docmakers.funcstable import *
+from .inspect.pydump import *
+from .docpage.npdocs import npdocasmd
+from .docmakers.formatdoc import *
 
 __author__ = 'Igor Semenov'
 __license__ = 'BSD-3-Clause'

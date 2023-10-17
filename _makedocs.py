@@ -1,38 +1,26 @@
 # -*- coding: utf-8 -*-
-"""Script that creates the package documentation.
+"""Creates the `docspyer` documentation.
 """
 
-import docspy
+import docspyer
 
 SRCPATH = 'docs/sources'
 DOCPATH = 'docs/build'
 
-LOGO = docspy.docpage.pagemaker.getlogo()
-LOGO += '<p id="logo-title">Docspy</p>'
-
-LOGOCSS = """
-#logo-title {
-  opacity: 0.9;
-  font-size: 22px;
-  font-weight: bold;
-  padding-left: 12px;
-  color: var(--black-color);s
-}
-"""
+LOGO = docspyer.docpage.pagemaker.getlogo()
+LOGO += '<p id="logo-title">docspyer</p>'
 
 MODULES = [
-    docspy, docspy.inspect
+    docspyer
 ]
 
-docspy.docmodules(
-    MODULES, SRCPATH, hostname='Docspy'
-)
+docspyer.docmods(MODULES, SRCPATH)
 
 config = {
     'doclogo': LOGO,
-    'codeblocks': True,
     'swaplinks': True,
-    'extracss': LOGOCSS.strip()
+    'codeblocks': True,
+    'extracss': '_theme.css'
 }
 
-docspy.builddocs(SRCPATH, DOCPATH, config)
+docspyer.builddocs(SRCPATH, DOCPATH, **config)

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Appendix — docspyer documentation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
+    <link rel="stylesheet" href="docpage.css">
+    <script src="docpage.js"></script>
+</head>
+
+<body>
+
+    <div id="top-panel">
+        <div id="page-logo"></div>
+        <div id="top-panel-tool-bar">
+            <div id="global-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="local-toc-btn" class="top-panel-btn" onclick="switchTOC(this)"></div>
+            <div id="home-page-btn" class="top-panel-btn" onclick="gotoHomePage()"></div>
+        </div>
+    </div>
+
+    <div id="global-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>Contents</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="global-toc-box__text" class="toc-box__textbox"></div>
+    </div>
+    <div id="local-toc-box" class="toc-box">
+        <div class="toc-box__header">
+            <p>On this page</p><button onclick="closeTOC(this)">&#x2715;</button>
+        </div>
+        <div id="local-toc-box__text" class="toc-box__textbox">
+            <p>
+            <ul>
+                <li><a href="#foreword">Foreword</a></li>
+                <li><a href="#remarks">Remarks</a>
+                    <ul>
+                        <li><a href="#markdown">Markdown</a></li>
+                        <li><a href="#docstrings">Docstrings</a></li>
+                    </ul>
+                </li>
+            </ul>
+            </p>
+        </div>
+    </div>
+
+    <div id="content-box">
+        <div id="title-box">
+            <h1 id="title-box__title">docspyer — Appendix</h1>
+            <h2 id="title-box__annotation"></h2>
+            <hr>
+        </div>
+        <div id="doc-box">
+<div class="toc-anchor"></div><h2>Foreword</h2>
+
+<p><b>Appendix</b> covers a number of supplementary topics:</p>
+
+<p>
+<ul class="md-list">
+    <li><a href="markdown.html">Markdown</a> — The internal Markdown (MD) format used by <code>docspyer</code>.</li>
+    <li><a href="">Docstrings</a> — The format of python docstrings supported by <code>docspyer</code>.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h2>Remarks</h2>
+
+<div class="toc-anchor"></div><h3>Markdown</h3>
+
+<p>
+<ul class="md-list">
+    <li>Reports on python scripts are first generated in MD format.</li>
+    <li>The documentation builder expects source files in MD format.</li>
+</ul>
+</p>
+
+<p>Related functions:</p>
+
+<p>
+<ul class="md-list">
+    <li><a href="docspyer.html#docscript">docspyer.docscript()</a></li>
+    <li><a href="docspyer.html#docpackage">docspyer.docpackage()</a></li>
+    <li><a href="docspyer.html#docsource">docspyer.docsource()</a></li>
+    <li><a href="docspyer.html#builddocs">docspyer.builddocs()</a></li>
+</ul>
+</p>
+
+<p>For more information see the <a href="markdown.html">format specification</a>.</p>
+
+<div class="toc-anchor"></div><h3>Docstrings</h3>
+
+<hr>
+        </div>
+        <p id="footnote">Copyright &copy; 2023, Igor Semenov.</p>
+    </div>
+
+    <footer></footer>
+
+    <script>
+        setDocPage();
+    </script>
+
+</body>
+
+</html>

@@ -1,95 +1,170 @@
 <!--
 {
-  "webtitle": "Usage — Docspy documentation",
+  "webtitle": "Usage — docspyer documentation",
+  "doctitle": "docspyer — Usage",
   "codeblocks": true
 }
 -->
 
-# Usage
+# Generate reports
+
+`docspyer` can create reports on:
+
+- A single python script.
+- A group of python scripts (package).
 
 ## Inspect a script
 
-Suppose you have a python script `myscript.py` located in some directory.
-
-You can generate a report on this script as follows:
+Example of creating a report on a script:
 
 ```python
-import docspy
+# -*- coding: utf-8 -*-
+"""Create a report on a python script.
 
-SCRIPTPATH = '../../myscript.py'  # Path to the python script.
-DOCPATH = '../../mydocs'          # Path where to save the report.
+SRCPATH — Path to the the script.
+DOCPATH — Path where to place the output files.
+"""
 
-# Generates a report in HTML.
-# Use mode='md' to select the MD format.
-docspy.docscript(
-    SCRIPTPATH, DOCPATH, mode='html'
+import docspyer
+
+DOCPATH = '../_docs'
+SRCPATH = 'docmakers/docmods.py'
+
+docspyer.cleardocs(DOCPATH)
+
+docspyer.docscript(
+    SRCPATH, DOCPATH, mode='html'
 )
+
 ```
 
-<b>Output in MD mode</b>
-
-The report named `myscript.md` is generated in `mydocs`.
-
-<b>Output in HTML mode</b>
-
-The report named `myscript.html` and the necessary CSS/JS files are generated in `mydocs`:
-
-```text
-mydocs
-├─ docpage.js
-├─ docpage.css
-└─ myscript.html
-```
+For more information see [docspyer.docscript()](docspyer.md#docscript)
 
 ## Inspect a package
 
-Suppose you have a directory with python scripts inside (package):
-
-```text
-mypackage
-├─ alfa.py
-└─ subpackage
-   └─ bravo.py
-```
-
-You can create an overview of this package as follows:
+Example of creating a report on a package:
 
 ```python
-import docspy
+# -*- coding: utf-8 -*-
+"""Create a report on a group of python scripts (package).
 
-DIRPATH = '../../mypackage' # Path to the package.
-DOCPATH = '../../mydocs'    # Path where to save the report.
+PKGPATH — Path to the package.
+DOCPATH — Path where to place the output files.
+"""
 
-# Generates an overview in HTML.
-# Use mode='md' to select the MD format.
-docspy.docpackage(
-    DIRPATH, DOCPATH, mode='html'
-) 
+import docspyer
+
+DOCPATH = '../_docs'
+PKGPATH = '../docspyer/docmakers'
+
+docspyer.cleardocs(DOCPATH)
+
+docspyer.docpackage(
+    PKGPATH, DOCPATH, mode='html', maxdepth=0
+)
+
 ```
 
-<b>Output in MD mode</b>
+For more information see [docspyer.docpackage()](docspyer.md#docpackage)
 
-The MD reports are generated in `mydocs`:
+# Build documentation
+
+`docspyer` can build HTML documentation from MD source files.
+
+## Source files
+
+Collect source files in a separate folder, for example:
 
 ```text
-mydocs
-├─ mypackage.alfa.md
-└─ mypackage.subpackage.bravo.md
+../docs/sources
+ ├─ index.md
+ ├─ ...
+ └─ *.md
 ```
 
-<b>Output in HTML mode</b>
+### Format
 
-The HTML reports along with the necessary CSS/JS files are generated in `mydocs`:
+- Source files should be prepared using the [Markdown](appendix.md) format.
+- Consider using [docspyer.DocFormat](docspyer.md#docformat) when preparing source files.
+
+### Metadata 
+
+A source file <em>may</em> contain a header with JSON metadata:
 
 ```text
-mydocs
-├─ docpage.js
-├─ docpage.css
-├─ index.html
-├─ mypackage.html
-├─ subpackage.html
-├─ mypackage.alfa.html
-└─ mypackage.subpackage.bravo.html
+
+<!--
+{
+  "webtitle": "WEBTITLE",
+  "doctitle": "DOCTITLE",
+  "codeblocks": true/false
+}
+-->
+
 ```
 
-Start `index.html` to explore the resulting overview. 
+<i>Remarks</i>
+
+- The header must be a first paragraph of the source file.
+- JSON data overwrites the default settings of the HTML page builder.
+
+### Index file
+
+The root file — `index.md` — is mandatory.
+
+This file <em>must</em> contain the documentation outline (global TOC):
+
+```text
+
+## Contents
+
+- [Section](*.md)
+  - [Subsection](*.md)
+
+```
+
+<i>Specification</i>
+
+- Heading title — `Contents` — is mandatory.
+- Heading level is flexible (1, 2, ...).
+- Links format (MD) is mandatory.
+
+### Modules
+
+Consider using [docspyer.docmods()](docspyer.md#docmods) to document modules dynamically (as live objects).
+
+## Run the builder
+
+For more information see [docspyer.builddocs()](docspyer.md#builddocs).
+
+Example of building a documentation:
+
+```python
+# -*- coding: utf-8 -*-
+"""Creates the `docspyer` documentation.
+"""
+
+import docspyer
+
+SRCPATH = 'docs/sources'
+DOCPATH = 'docs/build'
+
+LOGO = docspyer.docpage.pagemaker.getlogo()
+LOGO += '<p id="logo-title">docspyer</p>'
+
+MODULES = [
+    docspyer
+]
+
+docspyer.docmods(MODULES, SRCPATH)
+
+config = {
+    'doclogo': LOGO,
+    'swaplinks': True,
+    'codeblocks': True,
+    'extracss': '_theme.css'
+}
+
+docspyer.builddocs(SRCPATH, DOCPATH, **config)
+
+```

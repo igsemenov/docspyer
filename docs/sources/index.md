@@ -1,6 +1,7 @@
 <!--
 {
-  "webtitle": "Docspy documentation",
+  "webtitle": "docspyer documentation",
+  "doctitle": "docspyer",
   "codeblocks": true
 }
 -->
@@ -8,29 +9,25 @@
 ## Contents
 
 - [Usage](usage.md)
-- [Modules](modules.md)
-  - [docspy](docspy.md)
-  - [docspy.inspect](docspy.inspect.md)
+- [Reference](docspyer.md)
+- [Appendix](appendix.md)
+  - [Markdown](markdown.md)
+  - [Docstrings]()
 
 ## Overview
 
-### Installation
+This package helps to explore the structure of your python code.
+
+<b>Features</b>
+
+- Relies on static code analysis.
+- Reports on call trees and class trees.
+- Supports HTML and Markdown (MD) output formats.
+- Includes a simple documentation generator as a bonus.
+
+## Install
 
 The package is small enough to be used without pre-installation.
 
-Download the package and add it to `sys.path`:
-
-```python
-import sys
-
-PATH_TO_PACKAGE = '../../dir-with-package-inside'
-
-if PATH_TO_PACKAGE not in sys.path:
-  sys.path.append(PATH_TO_PACKAGE)
-```
-
-After that import the package as usual:
-
-```python
-import docspy
-```
+- Download the package and add its location to `sys.path`.
+- After that import the package as usual — <code><b>import</b> docspyer</code>.

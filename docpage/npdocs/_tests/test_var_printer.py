@@ -3,11 +3,11 @@
 """
 
 import unittest
-from docspy.docpage.npdocs import printers
+from docspyer.docpage.npdocs import printers
 
 printer = printers.VarPrinter()
 
-VARNAME = '● <code>VAR</code>'
+VARNAME = '<code>VAR</code>'
 VARTYPE = '<em>TYPE</em>'
 
 VARDEF_NO_TYPE = '<em>VAR</em>'

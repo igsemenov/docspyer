@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Parser of Markdown (MD) text.
+"""Converts MD text to a list of MD blocks.
 """
 
 import re
@@ -94,9 +94,17 @@ class MDParser:
 
 class ParTypeFinder:
 
-    RE_HRULE = re.compile('[-=\*]{3,}')
-    RE_HEADNG = re.compile('#{1,} ')
-    RE_LISTITER = re.compile(' {0,}- ')
+    RE_HRULE = re.compile(
+        blocks.MDHrule.RE_HRULE
+    )
+
+    RE_HEADNG = re.compile(
+        blocks.MDHeading.RE_PREF
+    )
+
+    RE_LISTITER = re.compile(
+        blocks.MDList.ITER
+    )
 
     def __init__(self):
 
@@ -107,7 +115,7 @@ class ParTypeFinder:
         self.set_table_parser()
 
     def set_table_parser(self):
-        self.table_parser = TableParser()
+        self.table_parser = TableFinder()
 
     def set_types_map(self):
 
@@ -181,7 +189,7 @@ class ParTypeFinder:
         return text.startswith('```') and text.endswith('```')
 
 
-class TableParser:
+class TableFinder:
     """Checks whether a paragraph is a table.
     """
 
@@ -189,7 +197,7 @@ class TableParser:
 
         if not self.is_multiline(par):
             return False
-        if not self.has_at_least_one_bar(par):
+        if not self.at_least_one_bar(par):
             return False
 
         lines = par.splitlines()
@@ -197,14 +205,14 @@ class TableParser:
         if len(lines) == 1:
             return False
 
-        if not self.equal_count_of_bars_in_lines(lines):
+        if not self.equal_bars_per_line(lines):
             return False
         if not self.second_line_is_dashed(lines):
             return False
 
         return True
 
-    def has_at_least_one_bar(self, par):
+    def at_least_one_bar(self, par):
         return par.find('|') != -1
 
     def is_multiline(self, par):
@@ -212,7 +220,7 @@ class TableParser:
             par.count('\n')
         )
 
-    def equal_count_of_bars_in_lines(self, lines):
+    def equal_bars_per_line(self, lines):
 
         counts = [
             line.count('|') for line in lines
@@ -229,11 +237,11 @@ class BlocksFactory:
     CODEPREFIX = MDParser.CODEPREFIX
 
     def __init__(self):
-        self.set_blocks_box()
+        self.set_blocks_zoo()
 
-    def set_blocks_box(self):
+    def set_blocks_zoo(self):
 
-        self.blocks_box = {
+        self.blocks_zoo = {
             'hrule': self.make_hrule,
             'heading': self.make_heading,
             'list': self.make_list,
@@ -243,10 +251,10 @@ class BlocksFactory:
         }
 
     def make_block(self, par, partype):
-        return self.run_maker_from_blocks_box(par, partype)
+        return self.run_maker_from_blocks_zoo(par, partype)
 
-    def run_maker_from_blocks_box(self, par, partype):
-        return self.blocks_box[partype](par)
+    def run_maker_from_blocks_zoo(self, par, partype):
+        return self.blocks_zoo[partype](par)
 
     def make_par(self, par):
         return blocks.MDPar(par)

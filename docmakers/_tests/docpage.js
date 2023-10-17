@@ -214,11 +214,11 @@ function gotoHomePage() {
 docPage.pagelogo = `<div><h3>DOC-LOGO</h3></div>`;
 docPage.contents = `<p>
 <ul>
-    <li><a href="alfa.html">Alfa</a>
+    <li><a class="global-toc__top-item" href="alfa.html">Alfa</a>
         <ul>
             <li><a href="bravo.html">Bravo</a>
                 <ul>
-                    <li><a href="">Delta</a></li>
+                    <li><a href="" style="pointer-events: none;">Delta</a></li>
                 </ul>
             </li>
         </ul>

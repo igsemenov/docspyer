@@ -14,7 +14,7 @@ def edit_inline_md(text) -> str:
 
 class InlineEditor:
 
-    RE_PATTERN = '[\w\s]S{1,}[^S]+S{1,}[\w\s,.:]'
+    RE_PATTERN = '[\s>]S{1,}[^S]+S{1,}[\s,.:<]'
 
     RE_WITH_BACKTICKS = re.compile(
         RE_PATTERN.replace('S', '`')
@@ -28,12 +28,18 @@ class InlineEditor:
         RE_PATTERN.replace('S', '\*')
     )
 
-    RE_LINK = "\s\[\w+\]\([\w.#]{0,}\)[\s,.:]"
+    RE_LINK_NAME = '[.\w\s]{1,}(\(\w*\)){0,1}'
+    RE_LINK_PATH = '[\w.#-]{0,}'
+
+    RE_LINK = "\s\[NAME\]\(PATH\)[\s,.:]"
+
+    RE_LINK = RE_LINK.replace('NAME', RE_LINK_NAME)
+    RE_LINK = RE_LINK.replace('PATH', RE_LINK_PATH)
 
     def edit_text(self, text):
 
-        text = self.edit_backticks(text)
         text = self.edit_quotmarks(text)
+        text = self.edit_backticks(text)
         text = self.edit_asterisks(text)
         text = self.edit_links(text)
 
@@ -80,7 +86,7 @@ class InlineEditor:
 
     def translate_bold_italic(self, snippet):
         return self.edit_snippet(
-            snippet, symbol='***', start='<b><i>', end='</i></b>'
+            snippet, symbol='***', start='<b><em>', end='</em></b>'
         )
 
     def translate_bold(self, snippet):
@@ -90,7 +96,7 @@ class InlineEditor:
 
     def translate_italic(self, snippet):
         return self.edit_snippet(
-            snippet, symbol='*', start='<i>', end='</i>'
+            snippet, symbol='*', start='<em>', end='</em>'
         )
 
     def translate_link(self, snippet):
@@ -121,11 +127,11 @@ class LinkEditor:
     """
 
     RE_PATH = re.compile(
-        "\]\([\w.]{0,}\)"
+        "\]\(PATH\)".replace('PATH', InlineEditor.RE_LINK_PATH)
     )
 
     RE_NAME = re.compile(
-        "\[\w{1,}\]\("
+        "\[NAME\]\(".replace('NAME', InlineEditor.RE_LINK_NAME)
     )
 
     def convert_link(self, snippet):

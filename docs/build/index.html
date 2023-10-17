@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <title>Docspy documentation</title>
+    <title>docspyer documentation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" charset="utf-8">
     <link rel="stylesheet" href="docpage.css">
     <link rel="stylesheet" href="default.min.css">
@@ -35,11 +35,8 @@
             <p>
             <ul>
                 <li><a href="#contents">Contents</a></li>
-                <li><a href="#overview">Overview</a>
-                    <ul>
-                        <li><a href="#installation">Installation</a></li>
-                    </ul>
-                </li>
+                <li><a href="#overview">Overview</a></li>
+                <li><a href="#install">Install</a></li>
             </ul>
             </p>
         </div>
@@ -47,20 +44,21 @@
 
     <div id="content-box">
         <div id="title-box">
-            <h1 id="title-box__title"></h1>
+            <h1 id="title-box__title">docspyer</h1>
             <h2 id="title-box__annotation"></h2>
             <hr>
         </div>
         <div id="doc-box">
-            <div class="toc-anchor"></div><h2>Contents</h2>
+<div class="toc-anchor"></div><h2>Contents</h2>
 
 <p>
-<ul>
+<ul class="ref-list" id="index-toc">
     <li><a href="usage.html">Usage</a></li>
-    <li><a href="modules.html">Modules</a>
+    <li><a href="docspyer.html">Reference</a></li>
+    <li><a href="appendix.html">Appendix</a>
         <ul>
-            <li><a href="docspy.html">docspy</a></li>
-            <li><a href="docspy.inspect.html">docspy.inspect</a></li>
+            <li><a href="markdown.html">Markdown</a></li>
+            <li><a href="" style="pointer-events: none;">Docstrings</a></li>
         </ul>
     </li>
 </ul>
@@ -68,30 +66,36 @@
 
 <div class="toc-anchor"></div><h2>Overview</h2>
 
-<div class="toc-anchor"></div><h3>Installation</h3>
+<p>This package helps to explore the structure of your python code.</p>
+
+<p><b>Features</b></p>
+
+<p>
+<ul class="md-list">
+    <li>Relies on static code analysis.</li>
+    <li>Reports on call trees and class trees.</li>
+    <li>Supports HTML and Markdown (MD) output formats.</li>
+    <li>Includes a simple documentation generator as a bonus.</li>
+</ul>
+</p>
+
+<div class="toc-anchor"></div><h2>Install</h2>
 
 <p>The package is small enough to be used without pre-installation.</p>
 
-<p>Download the package and add it to <code>sys.path</code>:</p>
+<p>
+<ul class="md-list">
+    <li>Download the package and add its location to <code>sys.path</code>.</li>
+    <li>After that import the package as usual — <code><b>import</b> docspyer</code>.</li>
+</ul>
+</p>
 
-<pre><span class="lang-name">Python</span><code class="language-python">import sys
-
-PATH_TO_PACKAGE = '../../dir-with-package-inside'
-
-if PATH_TO_PACKAGE not in sys.path:
-  sys.path.append(PATH_TO_PACKAGE)</code></pre>
-
-<p>After that import the package as usual:</p>
-
-<pre><span class="lang-name">Python</span><code class="language-python">import docspy</code></pre>
+<hr>
         </div>
+        <p id="footnote">Copyright &copy; 2023, Igor Semenov.</p>
     </div>
 
-    <footer>
-        <p>
-            &copy; 2023, Igor Semenov
-        </p>
-    </footer>
+    <footer></footer>
 
     <script>
         setDocPage();

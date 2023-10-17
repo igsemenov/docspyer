@@ -3,7 +3,7 @@
 """
 
 import unittest
-from docspy.docpage.textmd import parser
+from docspyer.docpage.textmd import parser
 
 mdparser = parser.MDParser()
 parsetext = parser.parsetext

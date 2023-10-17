@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Generates HTML/MD reports on python scripts and packages.
+"""Generates inspection reports on python scripts.
 """
 
 import os
@@ -19,29 +19,30 @@ apiobj = utils.apiobj
 
 
 @apiobj
-def docpackage(srcdir, docdir, mode, maxdepth=None) -> None:
-    """Generates documentation for a python package.
+def docpackage(pkgpath, docpath, mode, maxdepth=None) -> None:
+    """Creates an overview of a python package (static analysis).
 
     Parameters
     ----------
-    srcdir : str
+    pkgpath : str
         Path to the package directory.
-    docdir : str
+    docpath : str
         Path where to place the output files.
     mode : str
-        Specifies the output format — "html" or "md".
-    maxdepth : int
-        Maximum depth of the documentation tree.
+        Specifies the output format — <i>"html"</i> or <i>"md"</i>.
+    maxdepth : int = None
+        Maximum depth of nested subpackages.
+        If None, all subpackages are included.
 
     """
 
-    srcdir = utils.check_srcdir(srcdir)
-    docdir = utils.check_docdir(docdir)
+    pkgpath = utils.check_srcdir(pkgpath)
+    docpath = utils.check_docdir(docpath)
 
     doc_maker = get_docmaker_by_mode(mode)()
 
     doc_maker.docpkg(
-        pkgpath=srcdir, docpath=docdir, maxdepth=maxdepth
+        pkgpath=pkgpath, docpath=docpath, maxdepth=maxdepth
     )
 
 
@@ -55,30 +56,30 @@ def get_docmaker_by_mode(mode):
 
 
 @apiobj
-def docscript(srcfile, docdir, mode) -> None:
-    """Makes a report on a python script.
+def docscript(filepath, docpath, mode) -> None:
+    """Creates a report on a python script (static analysis).
 
     Parameters
     ----------
-    srcfile : str
+    filepath : str
         Path to the python script.
-    docdir : str
+    docpath : str
         Path where to place the output files.
     mode : str
-        Specifies the output format — "html" or "md".
+        Specifies the output format — <i>"html"</i> or <i>"md"</i>.
 
     """
 
-    srcfile = utils.check_srcfile(srcfile)
-    docdir = utils.check_docdir(docdir)
+    filepath = utils.check_srcfile(filepath)
+    docpath = utils.check_docdir(docpath)
 
-    name = os.path.basename(srcfile).removesuffix('.py')
-    content = utils.read_file(srcfile)
+    name = os.path.basename(filepath).removesuffix('.py')
+    content = utils.read_file(filepath)
 
     script = pyscripts.ScriptRecord(name, content)
 
     dumper = get_dumper_by_mode(mode)
-    dumper(script, docdir)
+    dumper(script, docpath)
 
 
 def get_dumper_by_mode(mode):

@@ -3,8 +3,8 @@
 """
 
 import unittest
-from docspy.utils import deeptrees
-from docspy.utils import treeastxt
+from docspyer.utils import deeptrees
+from docspyer.utils import treeastxt
 
 Node = deeptrees.TreeNode
 dumptree = treeastxt.dumptree_txt

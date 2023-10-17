@@ -3,8 +3,8 @@
 """
 
 import unittest
-from docspy.docpage.npdocs import parser
-from docspy.docpage.npdocs import blocks
+from docspyer.docpage.npdocs import parser
+from docspyer.docpage.npdocs import blocks
 
 
 PARAMS = """

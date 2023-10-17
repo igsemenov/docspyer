@@ -3,8 +3,8 @@
 """
 
 import unittest
-from docspy.docpage import anchors
-from docspy.docpage import templates
+from docspyer.docpage import anchors
+from docspyer.docpage import templates
 
 
 class TestAnchor:
@@ -12,12 +12,12 @@ class TestAnchor:
     anchor = None
     source = None
 
-    def test_find_line_with_anchor(self):
+    def test_find_anchor_line(self):
 
         anchor = self.anchor
         source = self.source
 
-        assert anchor.find_line_with_anchor(source) is not None
+        assert anchor.find_anchor_line(source) is not None, 'Anchor'
 
 
 class TestHeader(TestAnchor):
@@ -39,18 +39,18 @@ class TestPageSettings(TestAnchor):
         anchor = self.anchor
         source = self.source
 
-        assert anchor.replace_anchor(source) == source
+        assert anchor.replace_anchor(source) == source, 'PageSettings'
 
 
 class TestHighlight(TestAnchor):
 
     source = templates.DocPageHTML().getsource()
 
-    def test_make_substitute(self):
+    def test_set_replacement(self):
 
         anchor = self.anchor
 
-        assert anchor.make_substitute() == anchor.repl
+        assert anchor.set_replacement() == anchor.REPL, 'Highlight'
 
     def test_replace_anchor(self):
 
@@ -59,8 +59,8 @@ class TestHighlight(TestAnchor):
 
         newsource = anchor.replace_anchor(source)
 
-        assert anchor.repl not in source
-        assert anchor.repl in newsource
+        assert anchor.REPL not in source, 'Highlight'
+        assert anchor.REPL in newsource, 'Highlight'
 
     def test_remove_anchor(self):
 
@@ -69,10 +69,8 @@ class TestHighlight(TestAnchor):
 
         newsource = anchor.remove_anchor(source)
 
-        assert anchor.text in source
-        assert anchor.text not in newsource
-
-# Test classes
+        assert anchor.TEXT in source, 'Highlight'
+        assert anchor.TEXT not in newsource, 'Highlight'
 
 
 class TestWebtitle(TestHeader, unittest.TestCase):
@@ -120,5 +118,4 @@ class TestHighlightFunc(TestHighlight, unittest.TestCase):
 
 
 if __name__ == '__main__':
-
     unittest.main()

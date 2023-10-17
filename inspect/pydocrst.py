@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Dumps functions and classes to RST entries.
+"""Dumps module members to RST entries.
 """
 
 import textwrap
@@ -12,7 +12,7 @@ __all__ = [
 
 
 def apiobj(obj):
-    obj.__module__ = 'docspy.inspect'
+    obj.__module__ = 'docspyer.inspect'
     return obj
 
 
@@ -32,148 +32,65 @@ def modtorst(pymod) -> str:
 
     """
 
-    dumper = set_object_dumper()
+    name = pymod.__name__
+    docs = pymod.__doc__ or ''
 
-    entries = pydump.docmembers(
-        pymod, dumper
+    docs = npdocs.docasrst(docs)
+
+    dumper = get_object_dumper()
+
+    dumper.set_dumper(
+        hostname=name, doceditor=npdocs.docasrst, level=2
     )
 
-    name = pymod.__name__
+    entries = pydump.docmod_with_dumper(pymod, dumper)
+
     heading = name + '\n' + '='*len(name)
     definition = '.. py:module:: ' + name
 
+    parts = [
+        heading, definition, entries
+    ]
+
     return '\n\n'.join(
-        [heading, definition, entries]
+        filter(len, parts)
     )
 
 
-def set_object_dumper():
-    return dumpobj
+def get_object_dumper():
 
+    dumpertypes = {
+        'func': FuncDumperRST,
+        'class': ClassDumperRST
+    }
 
-def dumpobj(obj) -> str:
-
-    func_dumper = functorst
-    class_dumper = classtorst
-
-    if obj.__class__.__name__ == 'function':
-        return func_dumper(
-            obj, doceditor=npdocs.docasrst
-        )
-
-    if obj.__class__.__name__ == 'type':
-        return class_dumper(
-            obj, doceditor=npdocs.docasrst
-        )
-
-    return ''
-
-
-def functorst(pyfunc, doceditor=None) -> str:
-    """Dumps a python function to an RST entry.
-
-    Parameters
-    ----------
-    pyfunc : function
-        Function to be documented.
-    doceditor : function
-        Can by applied to edit the docstring.
-
-    Returns
-    -------
-    str
-        The resulting RST entry.
-
-    """
-
-    if type(pyfunc).__name__ != 'function':
-        raise ValueError('argument is not a function')
-
-    funcdumper = FuncDumperRST()
-    funcdumper.set_doceditor_if_any(doceditor)
-
-    return funcdumper.dumpobj(pyfunc)
-
-
-def classtorst(pyclass, doceditor=None) -> str:
-    """Dumps a python class to an RST entry.
-
-    Parameters
-    ----------
-    pyclass : type
-        Class to be documented.
-    doceditor : function
-        May by applied to edit the docstring.
-
-    Returns
-    -------
-    str
-        The resulting RST entry.
-
-    """
-
-    if type(pyclass).__name__ != 'type':
-        raise ValueError('argument is not a class')
-
-    methodsdumper = set_methodsdumper(doceditor)
-    classdumper = set_classdumper(doceditor, methodsdumper)
-
-    return classdumper.dumpobj(pyclass)
-
-
-def set_methodsdumper(doceditor):
-    methodsdumper = FuncDumperRST()
-    methodsdumper.set_doceditor_if_any(doceditor)
-    return methodsdumper
-
-
-def set_classdumper(doceditor, methodsdumper):
-
-    classdumper = ClassDumperRST()
-
-    classdumper.set_doceditor_if_any(doceditor)
-    classdumper.set_funcsdumper(methodsdumper)
-
-    return classdumper
+    return pydump.ObjectDumper(dumpertypes)
 
 
 class DumperRST:
 
     PREFIX = 3*chr(32)
 
-    def format_header(self, name, signature):
-        _, _, given_name = name.rpartition('.')
-        return self.make_definition(given_name, signature)
-
-    def apply_doceditor_if_any(self, docs):
-        if hasattr(self, 'doceditor'):
-            newdocs = getattr(self, 'doceditor')(docs)
-            return self.indent_text(newdocs)
-        return None
-
-    def dump_docs_as_text_otherwise(self, docs):
-
-        if not docs:
-            return ''
-
-        text = self.make_text_block(docs)
-        return self.indent_text(text)
+    def formatdoc(self, docs):
+        return self.make_text_block(docs)
 
     def make_text_block(self, docs):
         return '.. code-block::\n\n' + self.indent_text(docs)
-
-    def make_definition(self, name, signature):
-        return name + signature
 
     def indent_text(self, text):
         return textwrap.indent(
             text, prefix=self.PREFIX
         )
 
+    def format_content(self, content):
+        return content
+
 
 class FuncDumperRST(DumperRST, pydump.FuncDumper):
+    """Dumps functions in RST format.
+    """
 
-    def make_definition(self, name, signature):
+    def build_header(self, name, signature):
         return self.as_py_function(name, signature)
 
     def as_py_function(self, name, signature):
@@ -181,22 +98,16 @@ class FuncDumperRST(DumperRST, pydump.FuncDumper):
 
 
 class ClassDumperRST(DumperRST, pydump.ClassDumper):
+    """Dumps classes in RST format.
+    """
 
-    def make_definition(self, name, signature):
+    def build_header(self, name, signature):
         return self.as_py_class(name, signature)
 
     def as_py_class(self, name, signature):
         return '.. py:class:: ' + name + signature
 
-    def format_content(self, docs, funcs):
-        return self.join_docs_and_methods(docs, funcs)
-
-    def join_docs_and_methods(self, docs, funcs):
-        return '\n\n'.join(
-            filter(len, [docs, funcs])
-        )
-
-    def func_entry_to_method(self, entry):
+    def format_method_entry(self, entry):
         entry = self.change_label(entry)
         entry = self.remove_self(entry)
         return self.indent_text(entry)

@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import unittest
-from docspy.docpage.textmd import blocks
-from docspy.docpage.textmd import makehtml
+from docspyer.docpage.textmd import blocks
+from docspyer.docpage.textmd import makehtml
 
 Heading = blocks.MDHeading
 
@@ -52,15 +52,17 @@ for key, val in list(globals().items()):
 class TestConverter(unittest.TestCase):
 
     def test_convert(self):
-        dochtml = DocMaker().makedoc(TEXTMD)
+
+        dochtml = DocMaker().make_dochtml(TEXTMD)
+
         assert dochtml.text == TEXTHTML.strip()
         assert dochtml.toc == TOC_IN_HTML.strip()
 
 
 class TestTOCMaker(unittest.TestCase):
 
-    def test_make_toc_as_text_list(self):
-        assert TOCMaker().make_toc_as_text_list(HEADINGS) == TOC_AS_LIST
+    def test_make_toc_as_list(self):
+        assert TOCMaker().make_toc_as_list(HEADINGS) == TOC_AS_LIST
 
     def test_toc_in_html(self):
         assert TOCMaker().maketoc(HEADINGS) == TOC_IN_HTML

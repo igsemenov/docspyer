@@ -1,7 +1,3 @@
 # -*- coding: utf-8 -*-
-"""Utilities for exploring python scripts.
+"""Tools for exploring python scripts and objects.
 """
-
-from .pydocmd import *
-from .pydocrst import *
-from .pyscripts import *
