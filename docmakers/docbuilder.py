@@ -39,6 +39,7 @@ def docsource(srcpath, docpath, codeblocks=False) -> None:
 
     srcfile = SourceFile()
     srcfile = srcfile.set_file(srcpath)
+
     srcfile.dumpdocpage(docpath, codeblocks)
 
     pagemaker.dumpstatic(
