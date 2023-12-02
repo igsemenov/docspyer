@@ -96,7 +96,6 @@ class Dumper(ABC):
     ----------
     level : int
         Object level in a local hierarchy.
-        Used when documenting modules.
     hostname : str
         Used as the prefix before the given name.
     doceditor : function
@@ -464,9 +463,9 @@ class SignPrinter:
         return self.render_signature(obj)
 
     def unfold_object(self, obj):
-        return self.clsmeth_to_func(obj)
+        return self.func_from_clsmethod(obj)
 
-    def clsmeth_to_func(self, obj) -> str:
+    def func_from_clsmethod(self, obj) -> str:
         if inspect.ismethod(obj):
             return obj.__func__
         return obj

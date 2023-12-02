@@ -125,7 +125,7 @@ def classtomd(pycls, **settings) -> str:
     npstyle : bool = True
         Expects numpy style docstrings, if True.
         Otherwise, plain text format is used.
-    verbose : int = 0
+    verbosity : int = 0
         Controls the class verbosity (0-2)
         regarding the methods headings.
     predicate : function = None
@@ -137,7 +137,7 @@ def classtomd(pycls, **settings) -> str:
     level = settings.get('level', None)
     npstyle = settings.get('npstyle', True)
     hostname = settings.get('hostname', None)
-    verbose = settings.get('verbose', 0)
+    verbosity = settings.get('verbosity', 0)
     predicate = settings.get('predicate', None)
 
     dumper = get_objdumper()
@@ -146,7 +146,7 @@ def classtomd(pycls, **settings) -> str:
     config = {
         'hostname': hostname,
         'doceditor': doceditor,
-        'clsverbs': verbose,
+        'clsverbs': verbosity,
         'level': level
     }
 

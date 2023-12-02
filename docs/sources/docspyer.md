@@ -317,7 +317,7 @@ Returns a class documentation in MD.
   Otherwise, plain text format is used.
 </dd></dl>
 
-<p><span class="vardef"><code>verbose</code> : <em>int = 0</em></span></p>
+<p><span class="vardef"><code>verbosity</code> : <em>int = 0</em></span></p>
 
 <dl><dd>
   Controls the class verbosity (0-2)
