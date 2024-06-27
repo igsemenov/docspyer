@@ -4,10 +4,6 @@
 
 CLASSDOCS
 
-<pre class="py-sign">MyClass.<b>basemethod</b>(<em>self</em>) → <em>None</em></pre>
-
-BASEMETHOD
-
 <pre class="py-sign">MyClass.<b>mymethod</b>(<em>self</em>)</pre>
 
 METHODDOCS

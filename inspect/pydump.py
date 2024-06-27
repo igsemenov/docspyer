@@ -445,13 +445,18 @@ class ClassExplorer:
 
     def retain_with_docs(self, methods) -> list:
         return list(
-            filter(self.hasdocs_deep, methods)
+            filter(self.hasdocs_local, methods)
         )
 
     def hasdocs_deep(self, obj) -> bool:
         if inspect.getdoc(obj):
             return True
         return False
+
+    def hasdocs_local(self, obj) -> bool:
+        if obj.__doc__ is None:
+            return False
+        return bool(obj.__doc__)
 
 
 class SignPrinter:

@@ -80,7 +80,7 @@ class TestClassDumper(unittest.TestCase):
 
         out = dumper.dumpobj(MyClass)
 
-        assert out.count('```docstring\n') == 3
+        assert out.count('```docstring\n') == 2
 
     def test_classtomd_full(self):
 
