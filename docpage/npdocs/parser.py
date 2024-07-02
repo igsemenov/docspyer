@@ -62,6 +62,7 @@ class ParReader:
     varlists = (
         'Parameters',
         'Attributes',
+        'Properties',
         'Settings',
         'Returns',
         'Raises',
