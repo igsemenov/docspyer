@@ -3,7 +3,7 @@
 
 # <img src="./_logo.png" width="25" height="25"> docspyer
 
-Explores the structure of your Python code.
+Explores the structure of Python code.
 
 ## Features
 
