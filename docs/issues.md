@@ -21,3 +21,8 @@ B    |
 ```
 
 will not have `Description` in HTML.
+
+# Issue-03
+
+- Problem with HTML rendering of two sequential MD tables.
+- No gap between the tables in HTML document.
