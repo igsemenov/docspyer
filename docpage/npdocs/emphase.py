@@ -22,7 +22,7 @@ class InlineEditor:
     RE_KEYWORDS = "(" + "|".join(KEYWORDS) + ")"
 
     RE_WITH_KEYWORD = re.compile(
-        "\W" + RE_KEYWORDS + "\W"
+        r"\W" + RE_KEYWORDS + r"\W"
     )
 
     def emphasize_text(self, text) -> str:

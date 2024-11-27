@@ -73,11 +73,11 @@ class ParReader:
     re_sections = "(" + "|".join(sections) + ")"
 
     re_varlist_header = re.compile(
-        re_varlists + "\n-{3,}(\n|$)"
+        re_varlists + r"\n-{3,}(\n|$)"
     )
 
     re_section_header = re.compile(
-        re_sections + "\n-{3,}(\n|$)"
+        re_sections + r"\n-{3,}(\n|$)"
     )
 
     def __init__(self):
