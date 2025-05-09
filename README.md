@@ -21,9 +21,7 @@ The package is small enough to be used without pre-installation:
 
 ## Documentation
 
-See the [documentation](docs/sources/index.md) for more details, in particular:
+- ✅ Check the live documentation [here](https://your-username.github.io/your-repo-name/).
+- 📄 Check the local source documentation [here](docs/sources/index.md).
+- 💾 Offline HTML documentation is available by opening `docs/index.html`.
 
-- [Usage](docs/sources/usage.md)
-- [Reference](docs/sources/docspyer.md)
-
-The offline HTML documentation is available by starting `docs/index.html`.
