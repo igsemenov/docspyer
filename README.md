@@ -21,7 +21,7 @@ The package is small enough to be used without pre-installation:
 
 ## Documentation
 
-- ✅ Check the live documentation [here](https://your-username.github.io/your-repo-name/).
+- ✅ Check the live documentation [here](https://igsemenov.github.io/docspyer/).
 - 📄 Check the local source documentation [here](docs/sources/index.md).
 - 💾 Offline HTML documentation is available by opening `docs/index.html`.
 
