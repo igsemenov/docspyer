@@ -408,27 +408,3 @@ Converts a numpy style docsrting to MD.
 <dl><dd>
   The resulting docstring in MD.
 </dd></dl>
-
-## DocFormat
-
-<pre class="py-sign"><b><em>class</em></b> docspyer.<b>DocFormat</b>()</pre>
-
-Custom formatter of source files.
-
-<pre class="py-sign">DocFormat.<b>setconfig</b>(<em>self</em>, srcdirs, hostmod)</pre>
-
-Sets up the formatter.
-
-<b>Parameters</b>
-
-<p><span class="vardef"><code>srcdirs</code> : <em>list[str]</em></span></p>
-
-<dl><dd>
-  Folders to search for source files.
-</dd></dl>
-
-<p><span class="vardef"><code>hostmod</code> : <em>module</em></span></p>
-
-<dl><dd>
-  Module used to run inline calls.
-</dd></dl>

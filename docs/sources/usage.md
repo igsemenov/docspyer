@@ -85,7 +85,6 @@ Collect source files in a separate folder, for example:
 ### Format
 
 - Source files should be prepared using the [Markdown](appendix.md) format.
-- Consider using [docspyer.DocFormat](docspyer.md#docformat) when preparing source files.
 
 ### Metadata 
 

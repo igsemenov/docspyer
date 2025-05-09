@@ -10,7 +10,6 @@ from .inspect.pydocmd import *
 from .docmakers.funcstable import *
 from .inspect.pydump import *
 from .docpage.npdocs import npdocasmd
-from .docmakers.formatdoc import *
 
 __author__ = 'Igor Semenov'
 __license__ = 'BSD-3-Clause'
