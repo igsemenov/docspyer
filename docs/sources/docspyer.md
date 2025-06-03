@@ -32,14 +32,14 @@ Creates an overview of a python package (static analysis).
 <p><span class="vardef"><code>mode</code> : <em>str</em></span></p>
 
 <dl><dd>
-  Specifies the output format — <i><mark>&quot;html&quot;</mark></i> or <i><mark>&quot;md&quot;</mark></i>.
+  Specifies the output format — <i>&quot;html&quot;</i> or <i>&quot;md&quot;</i>.
 </dd></dl>
 
 <p><span class="vardef"><code>maxdepth</code> : <em>int = None</em></span></p>
 
 <dl><dd>
   Maximum depth of nested subpackages.
-  If <i>None</i>, all subpackages are included.
+  If <em>None</em>, all subpackages are included.
 </dd></dl>
 
 ## docscript()
@@ -65,7 +65,7 @@ Creates a report on a python script (static analysis).
 <p><span class="vardef"><code>mode</code> : <em>str</em></span></p>
 
 <dl><dd>
-  Specifies the output format — <i><mark>&quot;html&quot;</mark></i> or <i><mark>&quot;md&quot;</mark></i>.
+  Specifies the output format — <i><i>&quot;html&quot;</i></i> or <i><i>&quot;md&quot;</i></i>.
 </dd></dl>
 
 ## docsource()
@@ -91,7 +91,7 @@ Converts an MD source file to an HTML page.
 <p><span class="vardef"><code>codeblocks</code> : <em>bool</em></span></p>
 
 <dl><dd>
-  Code highlighting is activated, if <i>True</i>.
+  Code highlighting is activated, if <em>True</em>.
 </dd></dl>
 
 ## builddocs()
@@ -132,13 +132,13 @@ Assemble HTML documentation from MD source files.
 <p><span class="vardef"><code>codeblocks</code> : <em>bool = True</em></span></p>
 
 <dl><dd>
-  Code highlighting is activated, if <i>True</i>.
+  Code highlighting is activated, if <em>True</em>.
 </dd></dl>
 
 <p><span class="vardef"><code>swaplinks</code> : <em>bool = False</em></span></p>
 
 <dl><dd>
-  If <i>True</i>, links to MD files are converted 
+  If <em>True</em>, links to MD files are converted 
   to HTML ones across the source files.
 </dd></dl>
 
@@ -199,27 +199,27 @@ Creates MD documentation for python modules.
 
 <dl><dd>
   Name of the modules holder. 
-  If <i>None</i>, the longest common name is used. 
+  If <em>None</em>, the longest common name is used. 
 </dd></dl>
 
 <p><span class="vardef"><code>npstyle</code> : <em>bool = True</em></span></p>
 
 <dl><dd>
-  Expects numpy style docstrings, if <i>True</i>.
+  Expects numpy style docstrings, if <em>True</em>.
   Otherwise, plain text format is used.
 </dd></dl>
 
 <p><span class="vardef"><code>moddocs</code> : <em>bool = True</em></span></p>
 
 <dl><dd>
-  If <i>False</i>, modules are not documented, 
+  If <em>False</em>, modules are not documented, 
   only the index file is processed.
 </dd></dl>
 
 <p><span class="vardef"><code>modrefs</code> : <em>bool = True</em></span></p>
 
 <dl><dd>
-  If <i>True</i>, the modules reference is added to the index file.
+  If <em>True</em>, the modules reference is added to the index file.
 </dd></dl>
 
 <p><span class="vardef"><code>clsverbs</code> : <em>int = 0</em></span></p>
@@ -232,7 +232,7 @@ Creates MD documentation for python modules.
 <p><span class="vardef"><code>codeblocks</code> : <em>bool = False</em></span></p>
 
 <dl><dd>
-  Code highlighting is activated, if <i>True</i>.
+  Code highlighting is activated, if <em>True</em>.
 </dd></dl>
 
 ## funcstomd()
@@ -272,7 +272,7 @@ Returns documentation of functions in MD.
 <p><span class="vardef"><code>npstyle</code> : <em>bool = True</em></span></p>
 
 <dl><dd>
-  Expects numpy style docstrings, if <i>True</i>.
+  Expects numpy style docstrings, if <em>True</em>.
   Otherwise, plain text format is used.
 </dd></dl>
 
@@ -313,7 +313,7 @@ Returns a class documentation in MD.
 <p><span class="vardef"><code>npstyle</code> : <em>bool = True</em></span></p>
 
 <dl><dd>
-  Expects numpy style docstrings, if <i>True</i>.
+  Expects numpy style docstrings, if <em>True</em>.
   Otherwise, plain text format is used.
 </dd></dl>
 
@@ -328,7 +328,7 @@ Returns a class documentation in MD.
 
 <dl><dd>
   Function that filters class methods.
-  If <i>None</i>, only public methods with docs are retained.
+  If <em>None</em>, only public methods with docs are retained.
 </dd></dl>
 
 ## funcstable()
@@ -376,7 +376,7 @@ Fetches methods from a class.
 
 <dl><dd>
   Function that filters class methods.
-  If <i>None</i>, only public methods with docs are retained.
+  If <em>None</em>, only public methods with docs are retained.
 </dd></dl>
 
 <b>Returns</b>

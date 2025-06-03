@@ -38,7 +38,7 @@ class InlineEditor:
         re_with_keyword = self.RE_WITH_KEYWORD
 
         def repl_keyword(obj):
-            return "<i>" + obj.group() + "</i>"
+            return "<em>" + obj.group() + "</em>"
 
         def repl_snippet(obj):
             return re.sub(

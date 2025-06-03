@@ -29,7 +29,7 @@ def docpackage(pkgpath, docpath, mode, maxdepth=None) -> None:
     docpath : str
         Path where to place the output files.
     mode : str
-        Specifies the output format — <i>"html"</i> or <i>"md"</i>.
+        Specifies the output format — "html" or "md".
     maxdepth : int = None
         Maximum depth of nested subpackages.
         If None, all subpackages are included.

@@ -17,7 +17,7 @@ TEXT_MD = """
 
 TEXT_HTML = """
 <code>CODE</code>,
-<mark>&quot;MARK&quot;</mark>,
+<i>&quot;MARK&quot;</i>,
 <b>BOLD</b>,
 <em>ITALIC</em>,
 <b><em>STRONG</em></b>
@@ -36,7 +36,7 @@ class TestPatterns(unittest.TestCase):
         assert editor('`TEXT`') == '<code>TEXT</code>'
 
     def test_quotmarks(self):
-        assert editor('"TEXT"') == '<mark>&quot;TEXT&quot;</mark>'
+        assert editor('"TEXT"') == '<i>&quot;TEXT&quot;</i>'
 
     def test_asterisks_bold(self):
         assert editor('**TEXT**') == '<b>TEXT</b>'

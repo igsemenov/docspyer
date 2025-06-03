@@ -72,7 +72,7 @@ class InlineEditor:
 
     def translate_quotmarks(self, snippet):
         return self.edit_snippet(
-            snippet, symbol='"', start='<mark>&quot;', end='&quot;</mark>'
+            snippet, symbol='"', start='<i>&quot;', end='&quot;</i>'
         )
 
     def translate_asterisks(self, snippet):

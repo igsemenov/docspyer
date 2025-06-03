@@ -67,8 +67,9 @@ pre {
   font-size: 14px;
   line-height: 1.3em;
   border-radius: 5px;
-  white-space: pre-wrap;
   background-color: #f2f2f2;
+  overflow-x: auto;
+  white-space: pre;
 }
 
 pre code {
@@ -104,6 +105,7 @@ em {
   color: var(--em-color);
 }
 
+/*
 mark {
   font-size: 16px;
   font-style: normal;
@@ -111,6 +113,7 @@ mark {
   color: var(--mark-color);
   background-color: white;
 }
+*/
 
 p code,
 dd code,
@@ -481,6 +484,10 @@ dd {
 }
 
 dd i {
+  color: var(--mark-color);
+}
+
+dd em {
   color: var(--ibm-blue);
 }
 
