@@ -118,8 +118,8 @@ mark {
 p code,
 dd code,
 .md-list code {
+  padding: 0.1em;
   border-radius: 3px;
-  padding: 0.2em 0.3em;
   background-color: #f2f2f2;
 }
 
@@ -165,6 +165,7 @@ ul {
 .md-list,
 .md-list ul {
   margin-left: 2em;
+  line-height: 1.5em;
 }
 
 .md-list li {
