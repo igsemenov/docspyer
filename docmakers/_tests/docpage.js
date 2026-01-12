@@ -53,11 +53,19 @@ widgets.homepage = `<svg class="svg-widget" width="30" height="25" viewbox="0 0 
  * Sets up the docpage.
  */
 function setDocPage() {
+    setYear();
     setWidgets();
     setPageSettings();
     setTitleBox();
     setTocBoxes();
     setTocAnchors();
+}
+
+/**
+ * Sets the current year.
+ */
+function setYear() {
+    document.getElementById("year").textContent = new Date().getFullYear();
 }
 
 /**
